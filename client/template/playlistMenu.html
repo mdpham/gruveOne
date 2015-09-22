@@ -1,17 +1,17 @@
 <template name="menu">
 <div class="playlist-sidebar ui left inverted vertical sidebar menu">
 	<!-- Powered by Soundcloud -->
-	<div class="ui top attached orange compact segment">
-		<a class="ui fluid orange compact button" href="https://soundcloud.com" target="_blank">
+	<div class="ui top attached orange compact inverted segment">
+		<a class="ui fluid orange compact inverted button" href="https://soundcloud.com" target="_blank">
 			<i class="big soundcloud icon"></i>
 		</a>
 	</div>
 	<!-- App name -->
-	<div class="ui horizontal inverted blue divider">
+	<div class="ui horizontal inverted divider">
 		gruve
 	</div>
 	<!-- Playlists -->
-	<div class="ui vertical fluid inverted basic pink compact buttons">
+	<div class="ui vertical fluid inverted basic orange compact buttons">
 		<button class="ui button" ng-repeat="playlist in playlists.all track by $index" ng-click="selectPlaylist($index)">
 		    <span ng-bind="playlist.title"></span>
 		</button>
