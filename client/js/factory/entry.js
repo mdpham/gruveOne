@@ -6,6 +6,8 @@ gruveone.factory("Entry", ["$q", "Soundcloud", function($q, Soundcloud){
 				closable: false
 			})
 			.modal("show");
+
+		this.button = $(".entry.button");
 	};
 
 	Entry.prototype = {
@@ -14,7 +16,7 @@ gruveone.factory("Entry", ["$q", "Soundcloud", function($q, Soundcloud){
 			var sc = new Soundcloud;
 			return sc.getPlaylists();
 		},
-		close: function(){
+		hide: function(){
 			$(".entry.ui.modal").modal("hide");
 		}
 	}

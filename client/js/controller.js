@@ -1,18 +1,22 @@
-gruveone.controller("appController", ["$scope", "$meteor", "Soundcloud", "Entry",
-	function($scope, $meteor, Soundcloud, Entry){
+gruveone.controller("appController", ["$scope", "$meteor", "Entry",
+	function($scope, $meteor, Entry){
 		var scope = $scope;
+
 		//Show entry modal to force loading
 		var entry = new Entry;
-		$(".entry.button").on("click", function(){
+		//Load playlists on "Enter" button click
+		entry.button.on("click", function(){
 			entry.enter()
 				.then(function(p){
 					scope.playlists = p;
-				})
-				.then(function(){
-					console.log(scope.playlists);
-					entry.close();
+					entry.hide();
+					console.log("playlists:", scope.playlists);
 				});
-		})
+		});
+		////
 
+		scope.toggle = function(){
+			$(".ui.sidebar").sidebar("toggle");
+		};
 	}
 ]);
