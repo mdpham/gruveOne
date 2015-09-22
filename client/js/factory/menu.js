@@ -6,6 +6,9 @@ gruveone.factory("Menu", [function(){
 	Menu.prototype = {
 		playlistSidebar: function(){
 			$(".playlist-sidebar").sidebar("toggle");
+		},
+		selectTrack: function(){
+			console.log("asd");
 		}
 	};
 

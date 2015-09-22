@@ -1,7 +1,7 @@
-gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu",
-	function($scope, $meteor, Entry, Menu){
+gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soundcloud",
+	function($scope, $meteor, Entry, Menu, Soundcloud){
 		var scope = $scope;
-
+		var soundcloud = new Soundcloud;
 		//Show entry modal to force loading
 		var entry = new Entry;
 		//Load playlists on "Enter" button click
@@ -21,14 +21,14 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu",
 				});
 		});
 		entry.pigeonsAndPlanesButton.on("click", function(){
-			// entry.enter("pigeonsandplanes")
-			entry.enter("flashplayer1")
+			entry.enter("pigeonsandplanes")
+			// entry.enter("flashplayer1")
 				.then(function(p){
 					scope.playlists = {
 						all: p,
 						selected: null,
 						select: function(index){
-							this.selected = this.all[index];
+							this.selected = soundcloud.processPlaylist(this.all[index]);
 						}
 					};
 					entry.hide();
@@ -46,6 +46,6 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu",
 			scope.playlists.select(index);
 			console.log(scope.playlists.selected);
 			scope.menu.playlistSidebar();
-		}
+		};
 	}
 ]);

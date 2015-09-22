@@ -28,6 +28,14 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				})
 			});
 			return deferred.promise;
+		},
+		processPlaylist: function(playlist){
+			//Hi resolution artwork
+			_.each(playlist.tracks, function(track){
+				track.processed = {};
+				track.processed.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : (track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "");
+			});
+			return playlist;
 		}
 	};
 

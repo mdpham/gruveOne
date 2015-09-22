@@ -1,17 +1,26 @@
 <!-- Main menu for selecting tracks -->
 <template name="main">
 	<div ng-show="playlists.selected">
-	<div class="ui top fixed attached basic inverted secondary orange segment">
+<!-- 	<div class="ui top inverted orange segment">
 		<h2 class="ui header">
-			<span ng-bind="playlists.selected.title"></span>
+		<a class="red" ng-bind="playlists.selected.title" ng-href="[[playlists.selected.permalink_url]]" target="_blank">
+		</a>
 		</h2>
-	</div>
-	<div class="ui container">
-		<div ng-repeat="track in playlists.selected.tracks">
-			<div class="ui basic segment">
-				<span ng-bind="track.title"></span>
+	</div> -->
+	<div class="ui relaxed divided items">
+		<div class="ui horizontal divider">
+			<a ng-href="[[playlists.selected.permalink_url]]" target="_blank"><h3 class="ui orange header" ng-bind="playlists.selected.title"></h3></a>
+		</div>
+		<div class="item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="menu.selectTrack()">
+			<div class="ui small rounded image">
+				<img ng-src="[[track.processed.artwork_url]]"/>
 			</div>
-			<div class="ui divider"></div>
+			<div class="middle aligned content">
+				<div class="header">
+					<span ng-bind="track.title"></span>
+					<span ng-bind="track.artwork_url"></span>
+				</div>
+			</div>
 		</div>
 	</div>
 	</div>
