@@ -1,6 +1,7 @@
 gruveone.factory("Soundcloud", ["$q", function($q){
 	var config = {
-		username: "phamartin",
+		// username: "phamartin",
+		username:"pigeonsandplanes",
 		soundcloudClientID: "22785cfd8862a0f03c3402a8a42316aa"
 	};
 

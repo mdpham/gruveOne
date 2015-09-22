@@ -1,5 +1,7 @@
 <template name="menu">
-<div class="ui sidebar inverted vertical menu">
+<div class="playlist-sidebar ui left inverted vertical sidebar menu">
+	<a class="item">Powered by Soundcloud</a>
+	<div class="ui divider"></div>
 	<a class="item" ng-repeat="playlist in playlists">
 		<span ng-bind="playlist.title"></span>
 	</a>

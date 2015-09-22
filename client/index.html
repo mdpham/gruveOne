@@ -7,6 +7,17 @@
 			<meteor-include src="entry"></meteor-include>
 	<div id="foreva" ng-controller="appController">
 		<meteor-include src="menu"></meteor-include>
-		<meteor-include src="main"></meteor-include>
+
+		<div class="pusher">
+		<div class="ui grid">
+		  <div class="thirteen wide column">
+			<meteor-include src="main"></meteor-include>
+		  </div>
+		  <div class="three wide column">
+		  	<meteor-include src="player"></meteor-include>
+		  </div>
+		</div>
+		</div>
+		
 	</div>
 </body>
