@@ -4,22 +4,23 @@
 </head>
 
 <body>
-			<meteor-include src="entry"></meteor-include>
+	<meteor-include src="entry"></meteor-include>
 	<div id="foreva" ng-controller="appController">
 		<meteor-include src="menu"></meteor-include>
 
 		<div class="pusher" ng-show="entered">
-		<div class="ui padded divided grid">
-		<div class="row">
-		  <div class="thirteen wide column">
-			<meteor-include src="main"></meteor-include>
-		  </div>
-		  <div class="three wide column">
-		  	<meteor-include src="player"></meteor-include>
-		  </div>
+			<div class="ui padded grid">
+				<div class="row">
+					<div class="twelve wide column">
+						<meteor-include src="main" class="segment"></meteor-include>
+					</div>
+					<div class="four wide column">
+						<div class="ui right attached internal rail">
+					  		<meteor-include src="player" class="ui top fixed sticky"></meteor-include>
+					  	</div>
+				  	</div>
+			  	</div>
+		  	</div>
 		</div>
-		</div>
-		</div>
-		
 	</div>
 </body>
