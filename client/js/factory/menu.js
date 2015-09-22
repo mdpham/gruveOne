@@ -7,8 +7,11 @@ gruveone.factory("Menu", [function(){
 		playlistSidebar: function(){
 			$(".playlist-sidebar").sidebar("toggle");
 		},
-		selectTrack: function(){
-			console.log("asd");
+		artworkLoading: function(id, toggle){
+			//Reset any other artwork loading
+			$(".image").dimmer("hide");
+			//Toggle: "show" || "hide"
+			$("#"+id+" .image").dimmer(toggle);
 		}
 	};
 
