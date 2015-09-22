@@ -1,1 +1,4 @@
 /* CSS declarations go here */
+img.artwork {
+	border-radius: 5px !important;
+}
