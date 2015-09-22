@@ -1,19 +1,28 @@
+<!-- Main menu for selecting tracks -->
+<template name="main">
+	<div ng-show="playlists.selected">
+	<div class="ui top attached basic green segment">
+		<h2 class="ui header">
+			<span ng-bind="playlists.selected.title"></span>
+		</h2>
+	</div>
+	<div class="ui container">
+		<div ng-repeat="track in playlists.selected.tracks">
+			<div class="ui basic segment">
+				<span ng-bind="track.title"></span>
+			</div>
+			<div class="ui divider"></div>
+		</div>
+	</div>
+	</div>
+</template>
+
+<!-- Player Sidebar -->
 <template name="player">
 	<div class="ui card">
 	</div>
 	<div class="divider"></div>
 	<div class="ui basic segment">
-		<button class="ui button" ng-click="toggle()"></button>
-	</div>
-</template>
-
-<template name="main">
-	<div class="ui container">
-		<div class="ui basic segment">adwd</div>
-		<div class="ui divider"></div>
-		<div class="ui basic segment">adwd</div>
-		<div class="ui divider"></div>
-		<div class="ui basic segment">adwd</div>
-		<div class="ui divider"></div>
+		<button class="ui button" ng-click="menu.playlistSidebar()">adwadw</button>
 	</div>
 </template>

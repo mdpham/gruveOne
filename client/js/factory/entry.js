@@ -12,6 +12,7 @@ gruveone.factory("Entry", ["$q", "Soundcloud", function($q, Soundcloud){
 
 	Entry.prototype = {
 		enter: function(){
+			$(".entry.ui.button").addClass("disabled");
 			$(".entry.ui.dimmer").dimmer("show");
 			var sc = new Soundcloud;
 			return sc.getPlaylists();
