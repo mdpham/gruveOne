@@ -7,15 +7,17 @@ gruveone.factory("Entry", ["$q", "Soundcloud", function($q, Soundcloud){
 			})
 			.modal("show");
 
-		this.button = $(".entry.button");
+		this.buttons = $(".entry.button");
+		this.phamartinButton = $(".phamartin.entry.button");
+		this.pigeonsAndPlanesButton = $(".pigeonsandplanes.entry.button");
 	};
 
 	Entry.prototype = {
-		enter: function(){
+		enter: function(account){
 			$(".entry.ui.button").addClass("disabled");
 			$(".entry.ui.dimmer").dimmer("show");
 			var sc = new Soundcloud;
-			return sc.getPlaylists();
+			return sc.getPlaylists(account);
 		},
 		hide: function(){
 			$(".entry.ui.modal").modal("hide");

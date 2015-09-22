@@ -5,8 +5,8 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu",
 		//Show entry modal to force loading
 		var entry = new Entry;
 		//Load playlists on "Enter" button click
-		entry.button.on("click", function(){
-			entry.enter()
+		entry.phamartinButton.on("click", function(){
+			entry.enter("phamartin")
 				.then(function(p){
 					scope.playlists = {
 						all: p,
@@ -20,7 +20,23 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu",
 					scope.entered = true;
 				});
 		});
-		entry.button.click();
+		entry.pigeonsAndPlanesButton.on("click", function(){
+			// entry.enter("pigeonsandplanes")
+			entry.enter("flashplayer1")
+				.then(function(p){
+					scope.playlists = {
+						all: p,
+						selected: null,
+						select: function(index){
+							this.selected = this.all[index];
+						}
+					};
+					entry.hide();
+					console.log("playlists:", scope.playlists);
+					scope.entered = true;
+				});
+		});
+		entry.pigeonsAndPlanesButton.click();
 		////
 
 		//For opening sidebar, controlling actions

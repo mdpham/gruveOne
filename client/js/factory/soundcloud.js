@@ -16,10 +16,10 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 
 	//Instance Methods (access to 'this')
 	Soundcloud.prototype = {
-		getPlaylists: function(){
+		getPlaylists: function(account){
 			var deferred = $q.defer();
 			//Resolve url with username
-			SC.get("http://api.soundcloud.com/resolve.json?url=http://soundcloud.com/"+config.username+"&client_id="+config.soundcloudClientID,
+			SC.get("http://api.soundcloud.com/resolve.json?url=http://soundcloud.com/"+account+"&client_id="+config.soundcloudClientID,
 			function(user){
 				//Get user
 				SC.get("http://api.soundcloud.com/users/"+user.id+"/playlists?client_id="+config.soundcloudClientID,
