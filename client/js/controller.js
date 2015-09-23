@@ -50,9 +50,13 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 			scope.menu.playlistSidebar();
 		};
 		scope.selectTrack = function(index){
+			//Get Track
 			scope.track = scope.playlists.selected.tracks[index];
+			console.log(scope.track);
 			//Activate loader on artwork image
 			scope.menu.artworkLoading(scope.track.id, "show");
+			//Create sound and play
+			soundcloud.playTrack(scope.track);
 		};
 	}
 ]);

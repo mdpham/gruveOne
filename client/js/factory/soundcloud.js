@@ -12,6 +12,17 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			client_id: config.soundcloudClientID,
 			redirect_uri: ""
 		});
+
+		soundManager.setup({
+			url: "",
+			flashVersion: 9
+		});
+
+		//Current sound
+		this.current = {
+			sound: null,
+			volume: 10,
+		}
 	};
 
 	//Instance Methods (access to 'this')
@@ -36,6 +47,43 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				track.processed.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : (track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "");
 			});
 			return playlist;
+		},
+		playTrack: function(track){
+			//Create new current sound
+			console.log("play track", soundManager.canPlayURL(track.uri), track.stream_url);
+			// if (soundManager.canPlayURL(track.stream_url)) {
+				//Stop current sound and destroy
+				if (soundManager.getSoundById("current")) {
+					soundManager.stopAll();
+					soundManager.destroySound("current");
+				};
+				//Create and play
+				console.log("can play");
+				this.current.sound = soundManager.createSound({
+					id: "current",
+					url: track.stream_url + "?client_id="+config.soundcloudClientID,
+					autoPlay: true,
+					volume: this.current.volume, //50
+					whileloading: function(){
+						//Loading progress bar attached to top of artwork
+						$(".loading-progress").progress({
+							autoSuccess: false,
+							value: this.bytesLoaded / this.bytesTotal * 100
+						});
+					},
+					onload: function(){
+						//Playing progress bar attached to bottom of artwork
+						$(".playing-progress").progress({
+							autoSuccess: false
+						});
+						$(".playing-progress .bar").width(0);
+					},
+					whileplaying: function(){
+						//Update progress bar (uses width to preserve .active effect on progress bar)
+						$(".playing-progress .bar").width(this.position/this.duration*100 + "%");
+					}
+				});
+			// }
 		}
 	};
 

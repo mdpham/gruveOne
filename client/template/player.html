@@ -11,9 +11,12 @@
 				<a ng-href="[[track.permalink_url]]" target="_blank" class="ui orange right corner label">
 					<i class="share icon"></i>
 				</a>
+				<div class="loading-progress ui large active orange inverted top attached progress">
+					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms;"></div>
+				</div>
 				<img class="fluid image" ng-src="[[track.processed.artwork_url]]">
-				<div class="ui active orange inverted bottom attached progress" data-percent="28">
-					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms; width: 28%;"></div>
+				<div class="playing-progress ui large active orange inverted bottom attached progress">
+					<div class="bar"></div>
 				</div>
 			</div>
 			<div class="ui horizontal divider">
