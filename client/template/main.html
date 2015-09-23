@@ -1,8 +1,7 @@
 <!-- Main menu for selecting tracks -->
 <template name="main">
 	<!-- SELECT RANDOM PLAYLIST -->
-	<div class="ui massive fluid inverted button" ng-show="!playlists.selected">
-		<div class="ui statistics">
+		<div class="ui three fluid statistics" ng-show="!playlists.selected">
 			<div class="statistic">
 				<div class="value">
 					<i class="huge orange soundcloud icon"></i>
@@ -20,7 +19,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- PLAYLIST SELECTED -->
 	<div class="ui relaxed divided items" ng-show="playlists.selected">
