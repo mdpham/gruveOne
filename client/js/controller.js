@@ -13,7 +13,8 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 						selected: null,
 						select: function(index){
 							this.selected = this.all[index];
-						}
+						},
+						selectMessage: "Select a Playlist"
 					};
 					entry.hide();
 					console.log("playlists:", scope.playlists);
@@ -29,7 +30,8 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 						selected: null,
 						select: function(index){
 							this.selected = soundcloud.processPlaylist(this.all[index]);
-						}
+						},
+						selectMessage: "Select a Playlist"
 					};
 					entry.hide();
 					console.log("playlists:", scope.playlists);
