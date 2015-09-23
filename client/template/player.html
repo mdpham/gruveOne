@@ -1,14 +1,49 @@
 <!-- Player Sidebar -->
 <template name="player">
-	<div class="ui segments">
-	<div class="ui divider"></div>
-	<button class="ui fluid compact button" ng-click="menu.playlistSidebar()">Playlists</button>
-	<div class="ui divider"></div>
-	<div class="ui card">
-		<div class="image">
+<div class="ui piled segments">
+	<div class="ui horizontal divider"><i class="soundcloud icon"></i></div>
+	<div ng-show="playlists.selected && track">
+		<!-- Track Info -->
+		<div class="ui attached segment">
+			<!-- <div class="ui ribbon label">Listening to:</div> -->
+			<h5 class="ui tiny header" ng-bind="track.title"></h5>
+			<div class="ui fluid image">
+				<a ng-href="[[track.permalink_url]]" target="_blank" class="ui orange right corner label">
+					<i class="share icon"></i>
+				</a>
+				<img ng-src="[[track.processed.artwork_url]]">
+			</div>
+			<button class="ui fluid button"> adwdwa</button>
 
 		</div>
+		<!-- Player Options -->
+		<div class="ui attached segment">
+			<a class="ui ribbon label" ng-click="menu.playerOptions()"><i class="options icon"></i></a>
+			<div class="player-options ui attached segments" style="display:none">
+				<div class="ui attached segment three compact icon buttons">
+					<button class="ui button">
+						<i class="volume down icon"></i>
+					</button>
+					<button class="ui button">
+						<i class="volume off icon"></i>
+					</button>
+					<button class="ui button">
+						<i class="volume up icon"></i>
+					</button>
+				</div>
+				<div class="ui attached segment three compact icon buttons">
+					<button class="ui button"><i class="plus icon"></i></button>
+					<button class="ui button"><i class="plus icon"></i></button>
+					<button class="ui button"><i class="minus icon"></i></button>
+				</div>
+				<div class="ui segment">awd</div>
+			</div>
+		</div>
 	</div>
-	<div class="ui divider"></div>
+
+	<!-- Playlist Menu Button -->
+	<div class="ui bottom attached segment fluid compact button" ng-click="menu.playlistSidebar()">
+		Playlists
 	</div>
+</div>
 </template>

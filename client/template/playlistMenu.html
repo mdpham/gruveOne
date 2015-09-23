@@ -10,7 +10,7 @@
 	</div>
 	<!-- Playlists -->
 	<div class="ui vertical fluid inverted basic orange compact buttons">
-		<button class="ui button" ng-repeat="playlist in playlists.all track by $index" ng-click="selectPlaylist($index)">
+		<button class="ui button" ng-repeat="playlist in playlists.all" ng-click="selectPlaylist($index)">
 		    <span ng-bind="playlist.title"></span>
 		</button>
 	</div>

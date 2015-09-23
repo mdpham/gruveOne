@@ -12,6 +12,9 @@ gruveone.factory("Menu", [function(){
 			$(".image").dimmer("hide");
 			//Toggle: "show" || "hide"
 			$("#"+id+" .image").dimmer(toggle);
+		},
+		playerOptions: function(){
+			$(".player-options").transition("scale");
 		}
 	};
 

@@ -1,25 +1,7 @@
 <!-- Main menu for selecting tracks -->
 <template name="main">
 	<!-- SELECT RANDOM PLAYLIST -->
-<!-- 		<div class="ui three fluid statistics" ng-show="!playlists.selected">
-			<div class="statistic">
-				<div class="value">
-					<i class="huge orange soundcloud icon"></i>
-				</div>
-			</div>
-			<div class="statistic">
-				<div class="value">
-					<i class="huge chevron right icon"></i>
-				</div>
-				<div class="label">usually</div>
-			</div>
-			<div class="statistic">
-				<div class="value">
-					<i class="huge green spotify icon"></i>
-				</div>
-			</div>
-		</div> -->
-	<div class="ui huge fluid center aligned header">
+	<div class="ui huge fluid center aligned header" ng-show="!playlists.selected">
 		<a href="https://soundcloud.com" target="_blank">this</a>
 		&nbsp;over&nbsp;
 		<a href="https://www.spotify.com/ca-en/" target="_blank">that</a>
@@ -34,7 +16,7 @@
 			</h3></a>
 		</div>
 		<!-- Iterate over each track in selected playlist -->
-		<div class="item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack(track.id)" ng-attr-id="[[track.id.toString()]]">
+		<div class="item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]">
 			<!-- Artwork -->
 			<div class="ui small image">
 			  <div class="ui dimmer"><div class="ui loader"></div></div>

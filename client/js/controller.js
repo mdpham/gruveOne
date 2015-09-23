@@ -49,10 +49,10 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 			console.log(scope.playlists.selected);
 			scope.menu.playlistSidebar();
 		};
-		scope.selectTrack = function(id){
+		scope.selectTrack = function(index){
+			scope.track = scope.playlists.selected.tracks[index];
 			//Activate loader on artwork image
-			scope.menu.artworkLoading(id, "show");
-			console.log(id);
+			scope.menu.artworkLoading(scope.track.id, "show");
 		};
 	}
 ]);
