@@ -16,7 +16,7 @@
 			</h3></a>
 		</div>
 		<!-- Iterate over each track in selected playlist -->
-		<div class="item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]">
+		<div class="compact item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]">
 			<!-- Artwork -->
 			<div class="ui small image">
 			  <div class="ui dimmer"><div class="ui loader"></div></div>

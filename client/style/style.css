@@ -2,3 +2,7 @@
 img.artwork {
 	border-radius: 5px !important;
 }
+
+a.play-button {
+	cursor: pointer;
+}

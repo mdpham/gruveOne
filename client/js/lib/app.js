@@ -1,9 +1,9 @@
 //Declare angulare module and dependencies
-gruveone = angular.module("gruveone", ["angular-meteor"],
-	function($interpolateProvider){
+gruveone = angular.module("gruveone", ["angular-meteor"]);
+gruveone.config(	function($interpolateProvider){
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
-	});
+	})
 
 //Bootstrap angular
 function onReady(){angular.bootstrap(document, ["gruveone"]);};
