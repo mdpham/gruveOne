@@ -1,7 +1,7 @@
 <!-- Main menu for selecting tracks -->
 <template name="main">
 	<!-- SELECT RANDOM PLAYLIST -->
-		<div class="ui three fluid statistics" ng-show="!playlists.selected">
+<!-- 		<div class="ui three fluid statistics" ng-show="!playlists.selected">
 			<div class="statistic">
 				<div class="value">
 					<i class="huge orange soundcloud icon"></i>
@@ -18,7 +18,12 @@
 					<i class="huge green spotify icon"></i>
 				</div>
 			</div>
-		</div>
+		</div> -->
+	<div class="ui huge fluid center aligned header">
+		<a href="https://soundcloud.com" target="_blank">this</a>
+		&nbsp;over&nbsp;
+		<a href="https://www.spotify.com/ca-en/" target="_blank">that</a>
+	</div>
 
 	<!-- PLAYLIST SELECTED -->
 	<div class="ui relaxed divided items" ng-show="playlists.selected">
