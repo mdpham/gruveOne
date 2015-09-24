@@ -1,21 +1,25 @@
 <!-- Player Sidebar -->
 <template name="player">
 <div class="ui piled segments">
-	<div class="ui horizontal divider"><i class="large orange soundcloud icon"></i></div>
+	<div class="ui horizontal divider">
+		<a ng-href="[[track.permalink_url]]" target="_blank">
+			<i class="large orange soundcloud icon"></i>
+		</a>
+	</div>
 	<div ng-show="playlists.selected && track">
 		<!-- Track Info -->
 		<div class="ui attached center aligned tertiary segment">
 			<h5 class="ui tiny header" ng-bind="track.title"></h5>
 			<div class="ui fluid image">
 				<!-- Duration Tracking -->
-				<a ng-href="[[track.permalink_url]]" target="_blank" class="ui orange right corner label">
+<!-- 				<a ng-href="[[track.permalink_url]]" target="_blank" class="ui orange right corner label">
 					<i class="share icon"></i>
-				</a>
-				<div class="loading-progress ui large active orange inverted top attached progress">
+				</a> -->
+				<div class="loading-progress ui active orange inverted top attached progress">
 					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms;"></div>
 				</div>
 				<img class="fluid image" ng-src="[[track.processed.artwork_url]]">
-				<div class="playing-progress ui large active orange inverted bottom attached progress">
+				<div class="playing-progress ui active orange inverted bottom attached progress">
 					<div class="bar"></div>
 				</div>
 			</div>
@@ -36,6 +40,10 @@
 		<div class="ui attached segment">
 			<a class="ui ribbon label" ng-click="menu.playerOptions()"><i class="options icon"></i></a>
 			<div class="player-options ui attached segments" style="display:none">
+				<!-- Volume -->
+				<div class="ui orange active inverted top attached progress">
+					<div class="bar"></div>
+				</div>
 				<div class="ui attached segment three compact icon buttons">
 					<button class="ui button">
 						<i class="volume down icon"></i>
@@ -47,12 +55,27 @@
 						<i class="volume up icon"></i>
 					</button>
 				</div>
-				<div class="ui attached segment three compact icon buttons">
-					<button class="ui button"><i class="plus icon"></i></button>
-					<button class="ui button"><i class="plus icon"></i></button>
-					<button class="ui button"><i class="minus icon"></i></button>
+				<!-- Tracking -->
+				<div class="ui attached segment two compact icon buttons">
+					<button class="ui button">
+						<i class="backward icon"></i>
+					</button>
+					<button class="ui button">
+						<i class="forward icon"></i>
+					</button>
 				</div>
-				<div class="ui segment">awd</div>
+				<!-- Queue -->
+				<div class="ui attached segment three compact icon buttons">
+					<button class="ui button">
+						<i class="step backward icon"></i>
+					</button>
+					<button class="ui button">
+						<i class="stop icon"></i>
+					</button>
+					<button class="ui button">
+						<i class="step forward icon"></i>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>

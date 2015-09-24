@@ -5,4 +5,9 @@ img.artwork {
 
 a.play-button {
 	cursor: pointer;
+	opacity: 0.5;
+}
+
+a.play-button:hover {
+	opacity: 1;
 }
