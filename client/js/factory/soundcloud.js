@@ -15,7 +15,10 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 
 		soundManager.setup({
 			url: "",
-			flashVersion: 9
+			flashVersion: 8,
+			ontimeout: function(){
+				alert("soundManager2 just broke");
+			}
 		});
 
 		//Current sound
@@ -80,10 +83,13 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				},
 				onplay: function(){
 					unmuteOnPlay();
+				},
+				ondataerror: function(){
+					alert("There was an error getting the track data");
 				}
 			});
 			//
-
+			console.log(this.current.sound.waveformData);
 			this.current.playing = true;
 		},
 		//Playback (pause and play)
