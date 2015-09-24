@@ -7,22 +7,23 @@
 		</a>
 	</div>
 	<div ng-show="playlists.selected && track">
-		<!-- Track Info -->
+		<!-- TRACK INFO -->
 		<div class="ui attached center aligned tertiary segment">
+			<!-- Title -->
 			<h5 class="ui tiny header" ng-bind="track.title"></h5>
 			<div class="ui fluid image">
-				<!-- Duration Tracking -->
-<!-- 				<a ng-href="[[track.permalink_url]]" target="_blank" class="ui orange right corner label">
-					<i class="share icon"></i>
-				</a> -->
+				<!-- Loading Tracking -->
 				<div class="loading-progress ui active orange inverted top attached progress">
 					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms;"></div>
 				</div>
+				<!-- Artwork -->
 				<img class="fluid image" ng-src="[[track.processed.artwork_url]]">
+				<!-- Duration Tracking -->
 				<div class="playing-progress ui active orange inverted bottom attached progress">
 					<div class="bar"></div>
 				</div>
 			</div>
+			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button">
 					<!-- consider directive -->
@@ -32,49 +33,51 @@
 					</i>
 				</a>
 			</div>
-			<!-- Play/Pause Button -->
-			
-
 		</div>
-		<!-- Player Options -->
+
+		<!-- PLAYER OPTIONS -->
 		<div class="ui attached segment">
-			<a class="ui ribbon label" ng-click="menu.playerOptions()"><i class="options icon"></i></a>
+			<!-- Toggle options -->
+			<a class="ui ribbon label" ng-click="menu.playerOptions()">
+				<i class="options icon"></i>
+			</a>
+			<!-- Options -->
 			<div class="player-options ui attached segments" style="display:none">
 				<!-- Volume -->
-				<div class="ui orange active inverted top attached progress">
+				<div class="volume-progress ui orange active inverted top attached progress" ng-class="{error: soundcloud.current.muted}">
 					<div class="bar"></div>
 				</div>
 				<div class="ui attached segment three compact icon buttons">
-					<button class="ui button">
+					<div class="ui button" ng-click="changeVolume('down')">
 						<i class="volume down icon"></i>
-					</button>
-					<button class="ui button">
-						<i class="volume off icon"></i>
-					</button>
-					<button class="ui button">
+					</div>
+					<div class="ui button" ng-click="changeVolume('mute')">
+						<i class="volume off icon" ng-class="{red: soundcloud.current.muted}"></i>
+					</div>
+					<div class="ui button" ng-click="changeVolume('up')">
 						<i class="volume up icon"></i>
-					</button>
+					</div>
 				</div>
 				<!-- Tracking -->
 				<div class="ui attached segment two compact icon buttons">
-					<button class="ui button">
+					<div class="ui button">
 						<i class="backward icon"></i>
-					</button>
-					<button class="ui button">
+					</div>
+					<div class="ui button">
 						<i class="forward icon"></i>
-					</button>
+					</div>
 				</div>
 				<!-- Queue -->
 				<div class="ui attached segment three compact icon buttons">
-					<button class="ui button">
+					<div class="ui button">
 						<i class="step backward icon"></i>
-					</button>
-					<button class="ui button">
+					</div>
+					<div class="ui button">
 						<i class="stop icon"></i>
-					</button>
-					<button class="ui button">
+					</div>
+					<div class="ui button">
 						<i class="step forward icon"></i>
-					</button>
+					</div>
 				</div>
 			</div>
 		</div>

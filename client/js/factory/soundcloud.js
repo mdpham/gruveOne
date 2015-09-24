@@ -22,6 +22,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		this.current = {
 			sound: null,
 			volume: 10,
+			muted: false
 		}
 	};
 
@@ -49,41 +50,52 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			return playlist;
 		},
 		playTrack: function(track){
-			//Create new current sound
-			console.log("play track", soundManager.canPlayURL(track.uri), track.stream_url);
-			// if (soundManager.canPlayURL(track.stream_url)) {
-				//Stop current sound and destroy
-				if (soundManager.getSoundById("current")) {
-					soundManager.stopAll();
-					soundManager.destroySound("current");
-				};
-				//Create and play
-				console.log("can play");
-				this.current.sound = soundManager.createSound({
-					id: "current",
-					url: track.stream_url + "?client_id="+config.soundcloudClientID,
-					autoPlay: true,
-					volume: this.current.volume, //50
-					whileloading: function(){
-						//Loading progress bar attached to top of artwork
-						$(".loading-progress").progress({
-							autoSuccess: false,
-							value: this.bytesLoaded / this.bytesTotal * 100
-						});
-					},
-					onload: function(){
-						//Playing progress bar attached to bottom of artwork
-						$(".playing-progress").progress({
-							autoSuccess: false
-						});
-						$(".playing-progress .bar").width(0);
-					},
-					whileplaying: function(){
-						//Update progress bar (uses width to preserve .active effect on progress bar)
-						$(".playing-progress .bar").width(this.position/this.duration*100 + "%");
-					}
-				});
-			// }
+			//Stop current sound and destroy
+			if (soundManager.getSoundById("current")) {
+				soundManager.stopAll();
+				soundManager.destroySound("current");
+			};
+			//Create and play sound
+			this.current.sound = soundManager.createSound({
+				id: "current",
+				url: track.stream_url + "?client_id="+config.soundcloudClientID,
+				autoPlay: true,
+				volume: this.current.volume, //50
+				whileloading: function(){
+					//Loading progress bar attached to top of artwork
+					$(".loading-progress").progress({
+						autoSuccess: false,
+						value: this.bytesLoaded / this.bytesTotal * 100
+					});
+				},
+				onload: function(){
+					//Playing progress bar attached to bottom of artwork
+					$(".playing-progress").progress({
+						autoSuccess: false
+					});
+					$(".playing-progress .bar").width(0);
+					$(".volume-progress").progress({
+						autoSuccess: false
+					})
+				},
+				whileplaying: function(){
+					//Update progress bar (uses width to preserve .active effect on progress bar)
+					$(".playing-progress .bar").width(this.position/this.duration*100 + "%");
+				}
+			});
+		},
+		volumeDelta: function(delta){
+			if (this.current.muted) {this.volumeMute()};
+			this.current.volume = (delta == "up") ? Math.min(100, this.current.volume+6) : Math.max(10, this.current.volume-6);
+			this.current.sound.setVolume(this.current.volume);
+			$(".volume-progress").progress({
+				autoSuccess: false,
+				value: this.current.volume
+			});
+		},
+		volumeMute: function(){
+			this.current.muted = !this.current.muted;
+			this.current.sound.toggleMute();
 		}
 	};
 

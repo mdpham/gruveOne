@@ -1,7 +1,9 @@
 gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soundcloud",
 	function($scope, $meteor, Entry, Menu, Soundcloud){
 		var scope = $scope;
-		var soundcloud = new Soundcloud;
+		scope.soundcloud = new Soundcloud;
+		var soundcloud = $scope.soundcloud;
+
 		//Show entry modal to force loading
 		var entry = new Entry;
 		//Load playlists on "Enter" button click
@@ -44,6 +46,7 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		//For opening sidebar, controlling actions
 		scope.menu = new Menu;
 
+		//Events
 		scope.selectPlaylist = function(index){
 			scope.playlists.select(index);
 			console.log(scope.playlists.selected);
@@ -57,6 +60,21 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 			scope.menu.artworkLoading(scope.track.id, "show");
 			//Create sound and play
 			soundcloud.playTrack(scope.track);
+		};
+		scope.changeVolume = function(delta){
+			switch (delta) {
+				// case "down":
+				// 	soundcloud.volumeDown();
+				// 	break;
+				// case "up":
+				// 	soundcloud.volumeUp();
+				// 	break;
+				case "mute":
+					soundcloud.volumeMute();
+					break;
+				default:
+					soundcloud.volumeDelta(delta);
+			};
 		};
 	}
 ]);
