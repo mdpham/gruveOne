@@ -32,8 +32,9 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 						selected: null,
 						select: function(index){
 							this.selected = soundcloud.processPlaylist(this.all[index]);
-						},
-						selectMessage: "Select a Playlist"
+							// console.log(soundcloud.playlists);
+							// this.selected = soundcloud.playlists[index];
+						}
 					};
 					entry.hide();
 					console.log("playlists:", scope.playlists);
@@ -49,7 +50,7 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		//Events
 		scope.selectPlaylist = function(index){
 			scope.playlists.select(index);
-			console.log(scope.playlists.selected);
+			console.log(scope.playlists);
 			scope.menu.playlistSidebar();
 		};
 		scope.selectTrack = function(index){
@@ -59,7 +60,7 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 			//Activate loader on artwork image
 			scope.menu.artworkLoading(scope.track.id, "show");
 			//Create sound and play
-			soundcloud.playTrack(scope.track);
+			soundcloud.playTrack(scope.track, scope.playlists.selected);
 		};
 		scope.changeVolume = function(delta){
 			switch (delta) {
@@ -78,6 +79,12 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		};
 		scope.toggleStop = function(){
 			soundcloud.stopToggle();
+		};
+		scope.previousTrack = function(){
+			soundcloud.previousTrack();
+		};
+		scope.nextTrack = function(){
+			soundcloud.nextTrack();
 		};
 	}
 ]);

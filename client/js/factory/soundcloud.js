@@ -14,24 +14,33 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		});
 
 		soundManager.setup({
-			url: "",
-			flashVersion: 8,
+			preferFlash: true,
+			url: "/swf/",
+			flashVersion: 9,
 			ontimeout: function(){
 				alert("soundManager2 just broke");
 			}
 		});
-
+		this.playlists = null;
 		//Current sound
 		this.current = {
+			playlist: null,
+			track: null,
 			sound: null,
 			volume: 52, //initial volume
-			playing: false
+			playing: false,
+			playback: {
+				index: null,
+				type: "linear", //repeat or shuffle
+				history: []
+			}
 		}
 	};
 
 	//Instance Methods (access to 'this')
 	Soundcloud.prototype = {
 		getPlaylists: function(account){
+			var sc = this;
 			var deferred = $q.defer();
 			//Resolve url with username
 			SC.get("http://api.soundcloud.com/resolve.json?url=http://soundcloud.com/"+account+"&client_id="+config.soundcloudClientID,
@@ -39,7 +48,12 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				//Get user
 				SC.get("http://api.soundcloud.com/users/"+user.id+"/playlists?client_id="+config.soundcloudClientID,
 				function(data){
+					// var processed = _.map(data, sc.processPlaylist);
 					deferred.resolve(data);
+					sc.playlists = data;
+					// sc.playlists = processed;
+					// deferred.resolve(processed);
+
 				})
 			});
 			return deferred.promise;
@@ -52,14 +66,18 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			});
 			return playlist;
 		},
-		playTrack: function(track){
+		playTrack: function(track, playlist){
 			var sc = this;
 			var updateVolume = function(){$(".volume-progress").progress({autoSuccess: false, value: sc.current.volume});}
 			var unmuteOnPlay = function(){if (sc.current.sound) {sc.current.sound.unmute()}};
 			//Stop current sound and destroy
-			if (this.current.sound){this.current.sound.destruct()};
+			if (sc.current.sound){sc.current.sound.destruct()};
+			//Check if playing from new playlist or not
+			if (!(sc.current.playlist == playlist)) {
+				sc.current.playlist = sc.processPlaylist(playlist);
+			};
 			//Create and play sound
-			this.current.sound = soundManager.createSound({
+			sc.current.sound = soundManager.createSound({
 				id: "current",
 				url: track.stream_url + "?client_id="+config.soundcloudClientID,
 				autoPlay: true,
@@ -83,14 +101,17 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				},
 				onplay: function(){
 					unmuteOnPlay();
+					sc.current.playing = true;
 				},
 				ondataerror: function(){
 					alert("There was an error getting the track data");
 				}
 			});
 			//
-			console.log(this.current.sound.waveformData);
-			this.current.playing = true;
+			// this.current.playing = true;
+			sc.addHistory(track);
+			sc.current.track = track;
+			sc.current.playback.index = _.indexOf(playlist.tracks, track);
 		},
 		//Playback (pause and play)
 		pauseToggle: function(){
@@ -125,6 +146,40 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		stopToggle: function(){
 			this.current.sound.stop();
 			this.current.playing = false;
+		},
+		//Playback
+		addHistory: function(track){
+			// console.log("addhistory", this.current.playback.history);
+			switch (this.current.playback.type) {
+				case "linear":
+					//if the last element, dont add again
+					if (!(_.last(this.current.playback.history) == track)) {this.current.playback.history.push(track)};
+					break;
+				case "repeat":
+					//do nothing
+					break;
+				case "shuffle":
+					break;
+			};
+			// console.log("addhistory", this.current.playback.history);
+		},
+		previousTrack: function(){
+			var sc = this;
+			switch (sc.current.playback.type) {
+				case "linear":
+					//Get next track in playlist
+					var next = sc.current.playlist.tracks[Math.max(0,sc.current.playback.index-1)];
+					sc.playTrack(next, sc.current.playlist);
+					break;
+				case "repeat":
+					sc.current.sound.stop().play();
+					break;
+				case "shuffle":
+					break;
+			};
+		},
+		nextTrack: function(){
+
 		}
 	};
 
