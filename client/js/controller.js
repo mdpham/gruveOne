@@ -63,18 +63,15 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		};
 		scope.changeVolume = function(delta){
 			switch (delta) {
-				// case "down":
-				// 	soundcloud.volumeDown();
-				// 	break;
-				// case "up":
-				// 	soundcloud.volumeUp();
-				// 	break;
 				case "mute":
 					soundcloud.volumeMute();
 					break;
 				default:
 					soundcloud.volumeDelta(delta);
 			};
+		};
+		scope.changePosition = function(delta){
+			soundcloud.positionDelta(delta);
 		};
 	}
 ]);

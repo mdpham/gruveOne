@@ -84,6 +84,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				}
 			});
 		},
+		//Volume Control
 		volumeDelta: function(delta){
 			if (this.current.muted) {this.volumeMute()};
 			this.current.volume = (delta == "up") ? Math.min(100, this.current.volume+6) : Math.max(10, this.current.volume-6);
@@ -96,6 +97,14 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		volumeMute: function(){
 			this.current.muted = !this.current.muted;
 			this.current.sound.toggleMute();
+		},
+		//Tracking Control
+		positionDelta: function(delta){
+			//10 second increments
+			this.current.sound.setPosition((delta == "forward") ? 
+				Math.min(this.current.sound.duration, this.current.sound.position+10000) : 
+				Math.max(0, this.current.sound.position-10000)
+			);
 		}
 	};
 
