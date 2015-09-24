@@ -75,6 +75,9 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		};
 		scope.togglePause = function(){
 			soundcloud.pauseToggle();
-		}
+		};
+		scope.toggleStop = function(){
+			soundcloud.stopToggle();
+		};
 	}
 ]);
