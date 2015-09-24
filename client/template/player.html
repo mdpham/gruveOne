@@ -25,12 +25,9 @@
 			</div>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
-				<a class="play-button">
-					<!-- consider directive -->
-					<i class="large icons">
-					  <i class="big thin grey circle icon"></i>
-					  <i class="orange play icon"></i>
-					</i>
+				<a class="play-button" ng-click="togglePause()">
+					<!-- Opposite to indicate what will happen (playing => pause) -->
+					<i class="large orange icon" ng-class="{play: !soundcloud.current.playing, pause: soundcloud.current.playing}"></i>
 				</a>
 			</div>
 		</div>

@@ -22,7 +22,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		this.current = {
 			sound: null,
 			volume: 10,
-			muted: false
+			muted: false,
+			playing: false
 		}
 	};
 
@@ -83,6 +84,16 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 					$(".playing-progress .bar").width(this.position/this.duration*100 + "%");
 				}
 			});
+			this.current.playing = true;
+		},
+		//Playback (pause and play)
+		pauseToggle: function(){
+			this.current.sound.togglePause();
+			if (this.current.sound.paused) {
+				this.current.playing = false;
+			} else {
+				this.current.playing = true;
+			};
 		},
 		//Volume Control
 		volumeDelta: function(delta){
