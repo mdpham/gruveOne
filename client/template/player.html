@@ -9,8 +9,7 @@
 	<div ng-show="playlists.selected && track">
 		<!-- TRACK INFO -->
 		<div class="ui attached center aligned tertiary segment">
-			<!-- Title -->
-			<h5 class="ui tiny header" ng-bind="track.title"></h5>
+			<h5 class="ui tiny header" ng-bind="track.user.username"></h5>
 			<div class="ui fluid image">
 				<!-- Loading Tracking -->
 				<div class="loading-progress ui active orange inverted top attached progress">
@@ -24,6 +23,7 @@
 					<div class="bar"></div>
 				</div>
 			</div>
+			<h5 class="ui tiny header" ng-bind="track.title"></h5>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button" ng-click="togglePause()">
@@ -42,22 +42,22 @@
 			<!-- Options -->
 			<div class="player-options ui attached segments" style="display:none">
 				<!-- Volume -->
-				<div class="volume-progress ui orange active inverted top attached progress" ng-class="{error: soundcloud.current.muted}">
+				<div class="volume-progress ui top attached progress" ng-class="{orange: !soundcloud.current.sound.muted, red: soundcloud.current.sound.muted}">
 					<div class="bar"></div>
 				</div>
-				<div class="ui attached segment three compact icon buttons">
+				<div class="ui attached segment three tiny compact icon buttons">
 					<div class="ui button" ng-click="changeVolume('down')">
 						<i class="volume down icon"></i>
 					</div>
 					<div class="ui button" ng-click="changeVolume('mute')">
-						<i class="volume off icon" ng-class="{red: soundcloud.current.muted}"></i>
+						<i class="volume off icon" ng-class="{red: soundcloud.current.sound.muted}"></i>
 					</div>
 					<div class="ui button" ng-click="changeVolume('up')">
 						<i class="volume up icon"></i>
 					</div>
 				</div>
 				<!-- Tracking -->
-				<div class="ui attached segment two compact icon buttons">
+				<div class="ui attached segment two tiny compact icon buttons">
 					<div class="ui button" ng-click="changePosition('backward')">
 						<i class="backward icon"></i>
 					</div>
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 				<!-- Queue -->
-				<div class="ui attached segment three compact icon buttons">
+				<div class="ui attached segment three tiny compact icon buttons">
 					<div class="ui button">
 						<i class="step backward icon"></i>
 					</div>

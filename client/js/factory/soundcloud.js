@@ -21,8 +21,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		//Current sound
 		this.current = {
 			sound: null,
-			volume: 10,
-			muted: false,
+			volume: 52, //initial volume
 			playing: false
 		}
 	};
@@ -51,11 +50,11 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			return playlist;
 		},
 		playTrack: function(track){
+			var sc = this;
+			var updateVolume = function(){$(".volume-progress").progress({autoSuccess: false, value: sc.current.volume});}
+			var unmuteOnPlay = function(){if (sc.current.sound) {sc.current.sound.unmute()}};
 			//Stop current sound and destroy
-			if (soundManager.getSoundById("current")) {
-				soundManager.stopAll();
-				soundManager.destroySound("current");
-			};
+			if (this.current.sound){this.current.sound.destruct()};
 			//Create and play sound
 			this.current.sound = soundManager.createSound({
 				id: "current",
@@ -71,21 +70,20 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				},
 				onload: function(){
 					//Playing progress bar attached to bottom of artwork
-					$(".playing-progress").progress({
-						autoSuccess: false
-					});
+					$(".playing-progress").progress({autoSuccess: false});
 					$(".playing-progress .bar").width(0);
-					$(".volume-progress").progress({
-						autoSuccess: false
-					})
+					updateVolume();
 				},
 				whileplaying: function(){
-					//Update progress bar (uses width to preserve .active effect on progress bar)
-					$(".playing-progress .bar").width(this.position/this.duration*100 + "%");
+					//Update position progress bar (uses width to preserve .active effect on progress bar)
+					$(".playing-progress .bar").width(Math.max(10, this.position/this.duration*100) + "%");
 				},
-				onstop: function(){
+				onplay: function(){
+					unmuteOnPlay();
 				}
 			});
+			//
+
 			this.current.playing = true;
 		},
 		//Playback (pause and play)
@@ -99,7 +97,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		},
 		//Volume Control
 		volumeDelta: function(delta){
-			if (this.current.muted) {this.volumeMute()};
+			if (this.current.sound.muted) {this.volumeMute()};
 			this.current.volume = (delta == "up") ? Math.min(100, this.current.volume+6) : Math.max(10, this.current.volume-6);
 			this.current.sound.setVolume(this.current.volume);
 			$(".volume-progress").progress({
@@ -108,7 +106,6 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			});
 		},
 		volumeMute: function(){
-			this.current.muted = !this.current.muted;
 			this.current.sound.toggleMute();
 		},
 		//Tracking Control

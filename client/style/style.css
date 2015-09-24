@@ -3,11 +3,18 @@ img.artwork {
 	border-radius: 5px !important;
 }
 
+.playing-progress, .playing-progress .bar {
+	height: 7px !important;
+	border-bottom-left-radius: 3px !important;
+}
+.volume-progress, .volume-progress .bar {
+	height: 5px !important;
+}
+
 a.play-button {
 	cursor: pointer;
 	opacity: 0.55;
 }
-
 a.play-button:hover {
 	opacity: 1;
 }
