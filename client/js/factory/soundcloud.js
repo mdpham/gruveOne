@@ -76,6 +76,9 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			//Check if playing from new playlist
 			if (!(sc.current.playlist == playlist)) {
 				sc.current.playlist = sc.processPlaylist(playlist);
+				//Reset random
+				sc.current.playback.history = [track];
+				sc.current.playback.randomIndex = 0;
 			};
 			//Create and play sound
 			sc.current.sound = soundManager.createSound({
