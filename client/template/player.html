@@ -18,13 +18,11 @@
 				<!-- Artwork -->
 				<img class="fluid image" ng-src="[[soundcloud.current.track.processed.artwork_url]]">
 				<!-- Duration Tracking -->
-				<!-- change height of bars-->
 				<div class="playing-progress ui active orange inverted bottom attached progress">
 					<div class="bar"></div>
 				</div>
 			</div>
 			<h5 class="ui tiny header" ng-bind="soundcloud.current.track.title"></h5>
-			<span ng-bind="soundcloud.current.track.processed.artwork_url"></span>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button" ng-click="togglePause()">
@@ -39,6 +37,9 @@
 			<!-- Toggle options -->
 			<a class="ui ribbon label" ng-click="menu.playerOptions()">
 				<i class="options icon"></i>
+			</a>
+			<a class="playback-button" ng-click="togglePlayback()">
+				<i class="large circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
 			</a>
 			<!-- Options -->
 			<div class="player-options ui attached segments" style="display:none">
@@ -74,7 +75,7 @@
 					<div class="ui button" ng-click="toggleStop()">
 						<i class="stop icon"></i>
 					</div>
-					<div class="ui button">
+					<div class="ui button" ng-click="nextTrack()">
 						<i class="step forward icon"></i>
 					</div>
 				</div>

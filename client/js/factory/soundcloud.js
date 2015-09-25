@@ -31,7 +31,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			playing: false,
 			playback: {
 				index: null,
-				type: "linear" //repeat or shuffle
+				type: "linear" //repeat or random
 			}
 		}
 	};
@@ -146,23 +146,65 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			this.current.playing = false;
 		},
 		//Playback
+		playbackTypeToggle: function(){
+			this.current.playback.type = 
+				(this.current.playback.type == "linear") ? "repeat" : ((this.current.playback.type == "repeat") ? "random" : "linear");
+		},
+		trackDelta: function(delta){
+			var sc = this, toPlay;
+			switch (sc.current.playback.type) {
+				case "repeat":
+					sc.current.sound.stop().play();
+					break;
+				case "random":
+					//Add history for backward shuffling
+					if (delta == "backward") {
+
+					} else {
+
+					};
+					//
+					toPlay = _.sample(sc.current.playlist.tracks);
+					sc.playTrack(toPlay, sc.current.playlist);
+					break;
+				default:
+					if (delta == "backward") {
+						toPlay = sc.current.playlist.tracks[Math.max(0, sc.current.playback.index-1)];
+					} else {
+						toPlay = sc.current.playlist.tracks[Math.min(sc.current.playlist.tracks.length-1, sc.current.playback.index+1)];
+					};
+					sc.playTrack(toPlay, sc.current.playlist);
+			};
+		},
 		previousTrack: function(){
 			var sc = this;
 			switch (sc.current.playback.type) {
 				case "linear":
 					//Get next track in playlist
-					var next = sc.current.playlist.tracks[Math.max(0,sc.current.playback.index-1)];
+					var prev = sc.current.playlist.tracks[Math.max(0, sc.current.playback.index-1)];
+					sc.playTrack(prev, sc.current.playlist);
+					break;
+				case "repeat":
+					sc.current.sound.stop().play();
+					break;
+				case "random":
+					break;
+			};
+		},
+		nextTrack: function(){
+			var sc = this;
+			switch (sc.current.playback.type) {
+				case "linear":
+					console.log(sc.current);
+					var next = sc.current.playlist.tracks[Math.min(sc.current.playlist.tracks.length-1, sc.current.playback.index+1)];
 					sc.playTrack(next, sc.current.playlist);
 					break;
 				case "repeat":
 					sc.current.sound.stop().play();
 					break;
-				case "shuffle":
+				case "random":
 					break;
 			};
-		},
-		nextTrack: function(){
-
 		}
 	};
 

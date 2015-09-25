@@ -50,15 +50,13 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		//Events
 		scope.selectPlaylist = function(index){
 			scope.playlists.select(index);
-			console.log(scope.playlists);
+			// console.log(scope.playlists);
 			scope.menu.playlistSidebar();
 		};
 		scope.selectTrack = function(index){
 			//Get Track
 			var track = scope.playlists.selected.tracks[index];
 			// console.log(scope.track);
-			//Activate loader on artwork image
-			// scope.menu.artworkLoading(track.id, "show");
 			//Create sound and play
 			soundcloud.playTrack(track, scope.playlists.selected);
 		};
@@ -74,17 +72,23 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		scope.changePosition = function(delta){
 			soundcloud.positionDelta(delta);
 		};
+		//
 		scope.togglePause = function(){
 			soundcloud.pauseToggle();
 		};
 		scope.toggleStop = function(){
 			soundcloud.stopToggle();
 		};
+		//
 		scope.previousTrack = function(){
-			soundcloud.previousTrack();
+			soundcloud.trackDelta("backward");
 		};
 		scope.nextTrack = function(){
-			soundcloud.nextTrack();
+			soundcloud.trackDelta("forward");
+		};
+		//
+		scope.togglePlayback = function(){
+			soundcloud.playbackTypeToggle();
 		};
 	}
 ]);
