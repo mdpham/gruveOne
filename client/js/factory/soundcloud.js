@@ -31,8 +31,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			playing: false,
 			playback: {
 				index: null,
-				type: "linear", //repeat or shuffle
-				history: []
+				type: "linear" //repeat or shuffle
 			}
 		}
 	};
@@ -109,7 +108,6 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			});
 			//
 			// this.current.playing = true;
-			sc.addHistory(track);
 			sc.current.track = track;
 			sc.current.playback.index = _.indexOf(playlist.tracks, track);
 		},
@@ -148,21 +146,6 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			this.current.playing = false;
 		},
 		//Playback
-		addHistory: function(track){
-			// console.log("addhistory", this.current.playback.history);
-			switch (this.current.playback.type) {
-				case "linear":
-					//if the last element, dont add again
-					if (!(_.last(this.current.playback.history) == track)) {this.current.playback.history.push(track)};
-					break;
-				case "repeat":
-					//do nothing
-					break;
-				case "shuffle":
-					break;
-			};
-			// console.log("addhistory", this.current.playback.history);
-		},
 		previousTrack: function(){
 			var sc = this;
 			switch (sc.current.playback.type) {

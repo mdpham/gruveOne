@@ -55,12 +55,12 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		};
 		scope.selectTrack = function(index){
 			//Get Track
-			scope.track = scope.playlists.selected.tracks[index];
-			console.log(scope.track);
+			var track = scope.playlists.selected.tracks[index];
+			// console.log(scope.track);
 			//Activate loader on artwork image
-			scope.menu.artworkLoading(scope.track.id, "show");
+			// scope.menu.artworkLoading(track.id, "show");
 			//Create sound and play
-			soundcloud.playTrack(scope.track, scope.playlists.selected);
+			soundcloud.playTrack(track, scope.playlists.selected);
 		};
 		scope.changeVolume = function(delta){
 			switch (delta) {

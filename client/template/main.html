@@ -19,7 +19,7 @@
 		<div class="compact item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]">
 			<!-- Artwork -->
 			<div class="ui small image">
-			  <div class="ui dimmer"><div class="ui loader"></div></div>
+			  <div class="ui dimmer" ng-class="{active: track.id == soundcloud.current.track.id}"><div class="ui loader"></div></div>
 				<img class="artwork" ng-src="[[track.processed.artwork_url]]"/>
 			</div>
 			<div class="middle aligned content">
