@@ -32,7 +32,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			playback: {
 				index: null,
 				type: "linear", //repeat or random
-				history: [] //for random backwards playback
+				history: [], //for random backwards playback
+				randomIndex: null
 			}
 		}
 	};
@@ -72,7 +73,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			var unmuteOnPlay = function(){if (sc.current.sound) {sc.current.sound.unmute()}};
 			//Stop current sound and destroy
 			if (sc.current.sound){sc.current.sound.destruct()};
-			//Check if playing from new playlist or not
+			//Check if playing from new playlist
 			if (!(sc.current.playlist == playlist)) {
 				sc.current.playlist = sc.processPlaylist(playlist);
 			};
@@ -153,6 +154,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			//
 			if (this.current.playback.type == "random") {
 				this.current.playback.history = [this.current.track];
+				this.current.playback.randomIndex = 0;
 			};
 		},
 		trackDelta: function(delta){
@@ -164,18 +166,26 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				case "random":
 					//Add history for backward shuffling
 					if (delta == "backward") {
-						toPlay = sc.current.playback.history[Math.max(0, _.lastIndexOf(sc.current.playback.history, sc.current.track)-1)];
+						sc.current.playback.randomIndex = Math.max(0, sc.current.playback.randomIndex-1);
+						toPlay = sc.current.playback.history[sc.current.playback.randomIndex];
 					} else {
-						//CAN STILL CAUSE LOOPING
-						if (sc.current.playback.history.length-1 == _.lastIndexOf(sc.current.playback.history, sc.current.track)) {
-							//At the edge of history, need new random tracks
+						// //CAN STILL CAUSE LOOPING
+						// if (sc.current.playback.history.length-1 == _.lastIndexOf(sc.current.playback.history, sc.current.track)) {
+						// 	//At the edge of history, need new random tracks
+						// 	toPlay = _.sample(sc.current.playlist.tracks);
+						// 	sc.current.playback.history.push(toPlay);
+						// } else {
+						// 	//Still in history, 
+						// 	toPlay = sc.current.playback.history[_.lastIndexOf(sc.current.playback.history, sc.current.track)+1];
+						// };
+						// // toPlay = _.sample(sc.current.playlist.tracks);
+						sc.current.playback.randomIndex++;						
+						if (sc.current.playback.randomIndex == sc.current.playback.history.length) {
 							toPlay = _.sample(sc.current.playlist.tracks);
 							sc.current.playback.history.push(toPlay);
 						} else {
-							//Still in history, 
-							toPlay = sc.current.playback.history[_.lastIndexOf(sc.current.playback.history, sc.current.track)+1];
+							toPlay = sc.current.playback.history[sc.current.playback.randomIndex];
 						};
-						// toPlay = _.sample(sc.current.playlist.tracks);
 					};
 					console.log("HISTORY", sc.current.playback.history);
 					//
