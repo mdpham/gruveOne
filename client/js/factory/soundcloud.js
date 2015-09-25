@@ -31,7 +31,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			playing: false,
 			playback: {
 				index: null,
-				type: "linear" //repeat or random
+				type: "linear", //repeat or random
+				history: [] //for random backwards playback
 			}
 		}
 	};
@@ -149,6 +150,10 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		playbackTypeToggle: function(){
 			this.current.playback.type = 
 				(this.current.playback.type == "linear") ? "repeat" : ((this.current.playback.type == "repeat") ? "random" : "linear");
+			//
+			if (this.current.playback.type == "random") {
+				this.current.playback.history = [this.current.track];
+			};
 		},
 		trackDelta: function(delta){
 			var sc = this, toPlay;
@@ -159,12 +164,22 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				case "random":
 					//Add history for backward shuffling
 					if (delta == "backward") {
-
+						toPlay = sc.current.playback.history[Math.max(0, _.lastIndexOf(sc.current.playback.history, sc.current.track)-1)];
 					} else {
-
+						//CAN STILL CAUSE LOOPING
+						if (sc.current.playback.history.length-1 == _.lastIndexOf(sc.current.playback.history, sc.current.track)) {
+							//At the edge of history, need new random tracks
+							toPlay = _.sample(sc.current.playlist.tracks);
+							sc.current.playback.history.push(toPlay);
+						} else {
+							//Still in history, 
+							toPlay = sc.current.playback.history[_.lastIndexOf(sc.current.playback.history, sc.current.track)+1];
+						};
+						// toPlay = _.sample(sc.current.playlist.tracks);
 					};
+					console.log("HISTORY", sc.current.playback.history);
 					//
-					toPlay = _.sample(sc.current.playlist.tracks);
+					// toPlay = _.sample(sc.current.playlist.tracks);
 					sc.playTrack(toPlay, sc.current.playlist);
 					break;
 				default:
@@ -174,36 +189,6 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 						toPlay = sc.current.playlist.tracks[Math.min(sc.current.playlist.tracks.length-1, sc.current.playback.index+1)];
 					};
 					sc.playTrack(toPlay, sc.current.playlist);
-			};
-		},
-		previousTrack: function(){
-			var sc = this;
-			switch (sc.current.playback.type) {
-				case "linear":
-					//Get next track in playlist
-					var prev = sc.current.playlist.tracks[Math.max(0, sc.current.playback.index-1)];
-					sc.playTrack(prev, sc.current.playlist);
-					break;
-				case "repeat":
-					sc.current.sound.stop().play();
-					break;
-				case "random":
-					break;
-			};
-		},
-		nextTrack: function(){
-			var sc = this;
-			switch (sc.current.playback.type) {
-				case "linear":
-					console.log(sc.current);
-					var next = sc.current.playlist.tracks[Math.min(sc.current.playlist.tracks.length-1, sc.current.playback.index+1)];
-					sc.playTrack(next, sc.current.playlist);
-					break;
-				case "repeat":
-					sc.current.sound.stop().play();
-					break;
-				case "random":
-					break;
 			};
 		}
 	};
