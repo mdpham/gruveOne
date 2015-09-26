@@ -101,6 +101,13 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 					$(".playing-progress").progress({autoSuccess: false});
 					$(".playing-progress .bar").width(0);
 					updateVolume();
+					//Update artwork
+					$(".artwork-image").fadeOut("fast", function(){
+						console.log("this", this);
+						$(this).attr("src", track.processed.artwork_url);
+						$(this).fadeIn("fast");
+					})
+					
 				},
 				whileplaying: function(){
 					//Update position progress bar (uses width to preserve .active effect on progress bar)
@@ -110,6 +117,10 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				onplay: function(){
 					unmuteOnPlay();
 					sc.current.playing = true;
+				},
+				onfinish: function(){
+					sc.trackDelta("forward");
+					sc.pauseToggle().pauseToggle();
 				},
 				ondataerror: function(){
 					alert("There was an error getting the track data");
@@ -128,6 +139,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			} else {
 				this.current.playing = true;
 			};
+			return this;
 		},
 		//Volume Control
 		volumeDelta: function(delta){
