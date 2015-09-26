@@ -105,6 +105,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 					$(".artwork-image").fadeOut("fast", function(){
 						console.log("this", this);
 						$(this).attr("src", track.processed.artwork_url);
+						$(".artist-image").attr("src", track.user.avatar_url.replace("large","t500x500"));
+						console.log(track);
 						$(this).fadeIn("fast");
 					})
 					

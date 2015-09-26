@@ -10,14 +10,16 @@
 		<!-- TRACK INFO -->
 		<div class="ui attached center aligned tertiary segment">
 			<h6 class="ui tiny header" ng-bind="soundcloud.current.track.user.username"></h6>
-			<div class="ui fluid image">
 				<!-- Loading Tracking -->
 				<div class="loading-progress ui active orange inverted top attached progress">
 					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms;"></div>
 				</div>
+			<div class="ui fluid fixed fade reveal image">
+
 				<!-- Artwork -->
 				<!-- <img class="fluid image" ng-src="[[soundcloud.current.track.processed.artwork_url]]"> -->
-				<img class="artwork-image fluid image">
+				<img class="artwork-image visible content fluid image">
+				<img class="artist-image hidden content fluid image">
 				<!-- Duration Tracking -->
 				<div class="playing-progress ui orange inverted bottom attached progress">
 					<div class="bar">
