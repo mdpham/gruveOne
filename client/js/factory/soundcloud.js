@@ -104,7 +104,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				},
 				whileplaying: function(){
 					//Update position progress bar (uses width to preserve .active effect on progress bar)
-					$(".playing-progress .bar").width(Math.max(10, this.position/this.duration*100) + "%");
+					// $(".playing-progress .bar").width(Math.max(10, this.position/this.duration*100) + "%");
+					$(".playing-progress .bar").width((10 + (90*this.position/this.duration))+"%");
 				},
 				onplay: function(){
 					unmuteOnPlay();
@@ -148,6 +149,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				Math.min(this.current.sound.duration, this.current.sound.position+10000) : 
 				Math.max(0, this.current.sound.position-10000)
 			);
+			$(".playing-progress .bar").width((10 + (90*this.position/this.duration))+"%");
 			// $(".playing-progress .bar").width(Math.max(10, this.current.sound.position/this.current.sound.duration*100) + "%");
 		},
 		stopToggle: function(){
