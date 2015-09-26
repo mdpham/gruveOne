@@ -5,7 +5,12 @@ gruveone.factory("Menu", [function(){
 
 	Menu.prototype = {
 		playlistSidebar: function(){
-			$(".playlist-sidebar").sidebar("toggle");
+			$(".playlist-sidebar")
+				.sidebar("setting", {
+					duration: 1000,
+					transition: "overlay"
+				})
+				.sidebar("toggle");
 		},
 		// artworkLoading: function(id, toggle){
 		// 	//Reset any other artwork loading

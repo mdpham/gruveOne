@@ -2,7 +2,7 @@
 <template name="player">
 <div class="ui piled segments">
 	<div class="ui horizontal divider">
-		<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank">
+		<a ng-href="[[soundcloud.current.playlist.permalink_url]]" target="_blank">
 			<i class="large orange soundcloud icon"></i>
 		</a>
 	</div>
@@ -25,7 +25,11 @@
 					</div>
 				</div>
 			</div>
-			<h6 class="ui tiny header" ng-bind="soundcloud.current.track.title"></h6>
+			<h6 class="ui tiny header">
+				<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank">
+					<span ng-bind="soundcloud.current.track.title"></span>
+				</a>
+			</h6>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button" ng-click="togglePause()">
