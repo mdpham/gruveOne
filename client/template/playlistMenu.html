@@ -9,10 +9,8 @@
 		gruve1
 	</div>
 	<!-- Playlists -->
-	<div class="ui vertical fluid inverted orange compact buttons">
-		<button class="ui button" ng-repeat="playlist in playlists.all" ng-click="selectPlaylist($index)">
-		    <span ng-bind="playlist.title"></span>
-		</button>
-	</div>
+	<a class="item" ng-repeat="playlist in playlists.all" ng-hover ng-click="selectPlaylist($index)">
+		<span ng-bind="playlist.title"></span>
+	</a>
 </div>
 </template>
