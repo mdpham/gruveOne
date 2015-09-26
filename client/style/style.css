@@ -1,4 +1,8 @@
 /* CSS declarations go here */
+div.or:before {
+	background-color: yellow !important;
+}
+
 img.artwork {
 	border-radius: 5px !important;
 }

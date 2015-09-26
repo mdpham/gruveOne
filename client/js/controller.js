@@ -7,33 +7,49 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		//Show entry modal to force loading
 		var entry = new Entry;
 		//Load playlists on "Enter" button click
-		entry.phamartinButton.on("click", function(){
-			entry.enter("phamartin")
-				.then(function(p){
-					scope.playlists = {
-						all: p,
-						selected: null,
-						select: function(index){
-							this.selected = this.all[index];
-						},
-						selectMessage: "Select a Playlist"
-					};
-					entry.hide();
-					console.log("playlists:", scope.playlists);
-					scope.entered = true;
-				});
-		});
-		entry.pigeonsAndPlanesButton.on("click", function(){
-			entry.enter("pigeonsandplanes")
-			// entry.enter("flashplayer1")
+		// entry.phamartinButton.on("click", function(){
+		// 	entry.enter("phamartin")
+		// 		.then(function(p){
+		// 			scope.playlists = {
+		// 				all: p,
+		// 				selected: null,
+		// 				select: function(index){
+		// 					this.selected = soundcloud.processPlaylist(this.all[index]);
+		// 				}
+		// 			};
+		// 			entry.hide();
+		// 			console.log("playlists:", scope.playlists);
+		// 			scope.entered = true;
+		// 		});
+		// });
+		// entry.pigeonsAndPlanesButton.on("click", function(){
+		// 	entry.enter("pigeonsandplanes")
+		// 	// entry.enter("flashplayer1")
+		// 		.then(function(p){
+		// 			scope.playlists = {
+		// 				all: p,
+		// 				selected: null,
+		// 				select: function(index){
+		// 					this.selected = soundcloud.processPlaylist(this.all[index]);
+		// 					// console.log(soundcloud.playlists);
+		// 					// this.selected = soundcloud.playlists[index];
+		// 				}
+		// 			};
+		// 			entry.hide();
+		// 			console.log("playlists:", scope.playlists);
+		// 			scope.entered = true;
+		// 		});
+		// });
+
+		entry.buttons.on("click", function(e){
+			console.log("event", e.target.dataset.user);
+			entry.enter(e.target.dataset.user)
 				.then(function(p){
 					scope.playlists = {
 						all: p,
 						selected: null,
 						select: function(index){
 							this.selected = soundcloud.processPlaylist(this.all[index]);
-							// console.log(soundcloud.playlists);
-							// this.selected = soundcloud.playlists[index];
 						}
 					};
 					entry.hide();
@@ -41,7 +57,7 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 					scope.entered = true;
 				});
 		});
-		entry.pigeonsAndPlanesButton.click();
+		// entry.pigeonsAndPlanesButton.click();
 		////
 
 		//For opening sidebar, controlling actions

@@ -3,24 +3,55 @@
 	<div class="header">
 	</div>
 
-	<div class="content">
+	<div class="content ui segments">
 		<div class="ui inverted blurring segment">
-			<h1 class="ui center aligned pink header">
+			<h1 class="ui center aligned blue header">
 				gruveOne
 			</h1>
-		  <div class="entry ui dimmer">
-		    <div class="ui inverted loader"></div>
+		</div>
+		<div class="ui inverted blurring segment">
+			<div class="entry ui inverted dimmer">
+		    <div class="ui text loader">Fetching</div>
 		  </div>
+			<div class="ui fluid justified container grid">
+				<div class="eleven wide column">
+					<!-- Description -->
+					<div class="ui inverted header">
+						This is my <a href="http://gruve.meteor.com" target="_blank">second attempt</a> at a Soundcloud powered web app to play songs from my weekly playlists on my Soundcloud using Angular and Meteor.
+						It doesn't play as nice with dynamic page sizes, as I generally prefer to listen to music fullscreen or minimized. Let's all pray Soundcloud doesn't change their API.
+						<div class="ui horizontal fitted hidden divider"></div>
+					</div>
+						<div class="ui huge fluid center aligned inverted header" ng-show="!playlists.selected">
+		<a href="https://soundcloud.com" target="_blank">this</a>
+		&nbsp;over&nbsp;
+		<a href="https://www.spotify.com/ca-en/" target="_blank">that</a>, usually
+	</div>
+					<!-- Myself -->
+					<div class="ui horizontal inverted divider">My Weekly Playlists</div>
+					<div class="entry entry-enter ui fluid basic inverted right floated button" data-user="phamartin">
+						phamartin
+					</div>
+				</div>
+				<!-- BLOGS -->
+				<div class="five wide column">
+					<div class="ui horizontal inverted divider">BLOGS</div>
+					<div class="ui compact basic fluid inverted vertical buttons">
+						<div class="entry entry-enter ui button" data-user="pigeonsandplanes">Pigeons And Planes</div>
+						<div class="entry entry-enter ui button" data-user="i-d-online-1">i-D</div>
+						<div class="entry entry-enter ui button" data-user="indiemusicfilter">Indie Music Filter</div>
+						<div class="entry entry-enter ui button" data-user="some-kind-of-music-blog">Some Kind Of Music Blog</div>
+						<div class="entry entry-enter ui button" data-user="thewildhoneypie">The Wild Honey Pie</div>
+						<div class="entry entry-enter ui button" data-user="hypetrak-1">HYPETRAK</div>
+						<div class="entry entry-enter ui button" data-user="ayaeliza">ayaeliza</div>
+						<div class="entry entry-enter ui button" data-user="flashplayer1">sudo (ayaeliza)</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<div class="actions">
-		<div class="pigeonsandplanes entry ui button">
-			Can I Work Here
-		</div>
-		<div class="phamartin entry ui button">
-			Me
-		</div>
+		
 	</div>
 </div>
 </template>
