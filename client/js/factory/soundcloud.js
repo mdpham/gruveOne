@@ -14,8 +14,9 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		});
 
 		soundManager.setup({
-			preferFlash: true,
-			url: "/swf/",
+			// Flash breaks position progress bar
+			// preferFlash: true,
+			// url: "/swf/",
 			flashVersion: 9,
 			ontimeout: function(){
 				alert("soundManager2 just broke");
@@ -66,6 +67,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				track.processed.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : (track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "");
 			});
 			return playlist;
+		},
+		selectTrack: function(index){
 		},
 		playTrack: function(track, playlist){
 			var sc = this;
@@ -145,6 +148,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				Math.min(this.current.sound.duration, this.current.sound.position+10000) : 
 				Math.max(0, this.current.sound.position-10000)
 			);
+			// $(".playing-progress .bar").width(Math.max(10, this.current.sound.position/this.current.sound.duration*100) + "%");
 		},
 		stopToggle: function(){
 			this.current.sound.stop();
@@ -199,7 +203,9 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 					if (delta == "backward") {
 						toPlay = sc.current.playlist.tracks[Math.max(0, sc.current.playback.index-1)];
 					} else {
-						toPlay = sc.current.playlist.tracks[Math.min(sc.current.playlist.tracks.length-1, sc.current.playback.index+1)];
+						//Repeat if at the end
+						console.log("index", sc.current.playback.index, sc.current.playlist.tracks.length);
+						toPlay = sc.current.playlist.tracks[sc.current.playback.index == sc.current.playlist.tracks.length-1 ? 0 : Math.min(sc.current.playlist.tracks.length-1, sc.current.playback.index+1)];
 					};
 					sc.playTrack(toPlay, sc.current.playlist);
 			};

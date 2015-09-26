@@ -9,7 +9,7 @@
 	<div ng-show="playlists.selected && soundcloud.current.track">
 		<!-- TRACK INFO -->
 		<div class="ui attached center aligned tertiary segment">
-			<h5 class="ui tiny header" ng-bind="soundcloud.current.track.user.username"></h5>
+			<h6 class="ui tiny header" ng-bind="soundcloud.current.track.user.username"></h6>
 			<div class="ui fluid image">
 				<!-- Loading Tracking -->
 				<div class="loading-progress ui active orange inverted top attached progress">
@@ -18,11 +18,11 @@
 				<!-- Artwork -->
 				<img class="fluid image" ng-src="[[soundcloud.current.track.processed.artwork_url]]">
 				<!-- Duration Tracking -->
-				<div class="playing-progress ui active orange inverted bottom attached progress">
+				<div class="playing-progress ui orange inverted bottom attached progress">
 					<div class="bar"></div>
 				</div>
 			</div>
-			<h5 class="ui tiny header" ng-bind="soundcloud.current.track.title"></h5>
+			<h6 class="ui tiny header" ng-bind="soundcloud.current.track.title"></h6>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button" ng-click="togglePause()">
@@ -39,7 +39,7 @@
 				<i class="options icon"></i>
 			</a>
 			<a class="playback-button" ng-click="togglePlayback()">
-				<i class="large circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
+			    <i class="large circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
 			</a>
 			<!-- Options -->
 			<div class="player-options ui attached segments" style="display:none">
