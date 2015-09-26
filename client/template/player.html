@@ -25,11 +25,8 @@
 					</div>
 				</div>
 			</div>
-			<h6 class="ui tiny header">
-				<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank">
-					<span ng-bind="soundcloud.current.track.title"></span>
-				</a>
-			</h6>
+			<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank" ng-bind="soundcloud.current.track.title">
+			</a>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button" ng-click="togglePause()">
