@@ -11,15 +11,11 @@
 
 
 	<!-- PLAYLIST SELECTED -->
-<!-- 			<br>
-			<span ng-repeat="test in soundcloud.current.playback.history track by $index">
-				<span ng-bind="test.title"></span><br>
-			</span> -->
 	<div class="ui relaxed divided items" ng-show="playlists.selected">
 		<!-- Playlist title -->
 		<div class="ui horizontal divider">
 			<a ng-href="[[playlists.selected.permalink_url]]" target="_blank">
-				<h3 class="ui orange header" ng-bind="playlists.selected.title"></h3>
+				<div class="ui huge orange header" ng-bind="playlists.selected.title"></div>
 			</a>
 		</div>
 		<!-- Iterate over each track in selected playlist -->
@@ -64,7 +60,7 @@
 		<div class="ui small header">
 			Click the <div class="ui tiny orange compact button">Playlists</div> button to select a playlist from the playlist side menu.
 			<div class="ui hidden horizontal divider"></div>
-			Click to select a track to play. The right side player will appear.
+			Click a track to play. The right side player will appear.
 			<div class="ui hidden horizontal divider"></div>
 			Click the <span><i class="tiny fitted orange soundcloud icon"></i></span> icon at the top of the player to go to the playlist currently being played from, on Soundcloud.
 		</div>
