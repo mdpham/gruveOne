@@ -73,5 +73,9 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		scope.togglePlayback = function(){
 			soundcloud.playbackTypeToggle();
 		};
+		//
+		scope.toggleInfo = function(){
+			$(".main-description-modal").modal("show");
+		}
 	}
 ]);

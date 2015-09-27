@@ -26,10 +26,10 @@ img.artwork {
 	height: 5px !important;
 }
 
-a.play-button, a.playback-button {
+a.play-button, a.playback-button, a.info-button {
 	cursor: pointer;
 	opacity: 0.75;
 }
-a.play-button:hover, a.playback-button:hover {
+a.play-button:hover, a.playback-button:hover, a.info-button {
 	opacity: 1;
 }

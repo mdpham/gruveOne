@@ -2,6 +2,13 @@
 <template name="main">
 	<!-- DESCRIPTION/HOW TO USE -->
 	<meteor-include src="main-description" ng-hide="playlists.selected"></meteor-include>
+	<div class="main-description-modal ui basic long fullscreen modal">
+		<i class="close icon"></i>
+		<div class="content">
+			<meteor-include src="main-description"></meteor-include>
+		</div>
+	</div>
+
 
 	<!-- PLAYLIST SELECTED -->
 <!-- 			<br>
@@ -44,7 +51,7 @@
 </template>
 
 <template name="main-description">
-<div class="ui basic segments">
+<div class="ui fluid basic segments">
 	<div class="ui fluid orange segment">
 		<div class="ui small header">
 			Click the <div class="ui tiny orange compact button">Playlists</div> button to select a playlist from the playlist side menu.
@@ -61,63 +68,91 @@
 	</div>
 	<div class="ui fluid orange segment">
 		<!-- Playback options -->
-		<div class="ui relaxed divided list">
-		  <div class="item">
-		    <i class="large long arrow right middle aligned icon"></i>
-		    <div class="content">
-		      <span class="header">Repeat Playlist</span>
-		    </div>
-		  </div>
-		  <div class="item">
-		    <i class="large repeat middle aligned icon"></i>
-		    <div class="content">
-		      <span class="header">Repeat Current Track</span>
-		    </div>
-		  </div>
-		  <div class="item">
-		    <i class="large random middle aligned icon"></i>
-		    <div class="content">
-		      <span class="header">Shuffle</span>
-		      <div class="description">Play random track, keeps history of randomly played tracks</div>
-		    </div>
-		  </div>
+		<div class="ui feed">
+			<div class="event">
+				<div class="label">
+					<i class="large long arrow right middle aligned icon"></i>
+				</div>
+				<div class="content">
+					<div class="summary">Repeat Playlist<div class="date">Plays linearly</div></div>
+				</div>
+			</div>
+			<div class="event">
+				<div class="label">
+					<i class="large repeat icon"></i>
+				</div>
+				<div class="content">
+					<div class="summary">Repeat Current Track</div>
+				</div>
+			</div>
+			<div class="event">
+				<div class="label">
+					<i class="large random icon"></i>
+				</div>
+				<div class="content">
+					<div class="summary">Shuffle<div class="date">Play random track, keeps history of randomly played tracks</div></div>
+				</div>
+			</div>
 		</div>
 		<!-- Player Options -->
 		<div class="ui small header">
 			Click the <div class="ui mini horizontal label"><i class="tiny options icon"></i></div> icon to expand the player buttons:
 		</div>
-		<div class="ui relaxed divided list">
-			<div class="item">
-				<i class="large volume down middle aligned icon"></i>
-				<i class="large volume up middle aligned icon"></i>
+		<div class="ui feed">
+			<div class="event">
+				<div class="label">
+					<i class="large volume down middle aligned icon"></i>
+				</div>
+				<div class="label">
+					<i class="large volume up middle aligned icon"></i>
+				</div>
 				<div class="content">
-					<span class="header">Change volume by 6%</span>
+					<div class="summary">
+						Change volume by 6%
+						<div class="date">Minimum 10% volume</div>
+					</div>
 				</div>
 			</div>
-			<div class="item">
-				<i class="large volume off middle aligned icon"></i>
+			<div class="event">
+				<div class="label"><i class="large volume off middle aligned icon"></i></div>
 				<div class="content">
-					<span class="header">Mute volume</span>
+					<div class="summary">
+						Mute Volume
+					</div>
 				</div>
 			</div>
-			<div class="item">
-				<i class="large backward middle aligned icon"></i>
-				<i class="large forward middle aligned icon"></i>
+			<div class="event">
+				<div class="label">
+					<i class="large backward middle aligned icon"></i>
+				</div>
+				<div class="label">
+					<i class="large forward middle aligned icon"></i>
+				</div>
 				<div class="content">
-					<span class="header">Skip +/- 10 seconds</span>
+					<div class="summary">
+						Skip +/- 10 seconds
+					</div>
 				</div>
 			</div>
-			<div class="item">
-				<i class="large step backward middle aligned icon"></i>
-				<i class="large step forward middle aligned icon"></i>
+			<div class="event">
+				<div class="label">
+					<i class="large step backward middle aligned icon"></i>
+				</div>
+				<div class="label">
+					<i class="large step forward middle aligned icon"></i>
+				</div>
 				<div class="content">
-					<span class="header">Previous/Next track</span>
+					<div class="summary">
+						Previous/Next Track
+					</div>
 				</div>
 			</div>
-			<div class="item">
-				<i class="large stop middle aligned icon"></i>
+			<div class="event">
+				<div class="label"><i class="large stop middle aligned icon"></i></div>
 				<div class="content">
-					<span class="header">Stop track</span>
+					<div class="summary">
+						Stop Track
+					</div>
 				</div>
 			</div>
 		</div>

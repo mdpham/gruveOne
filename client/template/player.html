@@ -47,6 +47,9 @@
 			<a class="playback-button" ng-click="togglePlayback()">
 			    <i class="circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
 			</a>
+			<a class="info-button" ng-click="toggleInfo()">
+				<i class="circular info icon"></i>
+			</a>
 			<!-- Options -->
 			<div class="player-options ui attached segments" style="display:none">
 				<!-- Volume -->
