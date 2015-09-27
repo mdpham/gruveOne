@@ -22,7 +22,6 @@ gruveone.directive('ngHover', function() {
 					"cursor": "pointer",
 					"background-color": randomColor({luminosity:"light"})
 				});
-				console.log("element", $(element).children(".image"));
 				$(element).children(".image").css("visibility", "hidden");
 			})
 			element.bind("mouseleave", function(){

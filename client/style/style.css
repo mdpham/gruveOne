@@ -33,3 +33,12 @@ a.play-button, a.playback-button, a.info-button {
 a.play-button:hover, a.playback-button:hover, a.info-button {
 	opacity: 1;
 }
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

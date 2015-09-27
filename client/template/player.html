@@ -41,13 +41,13 @@
 		<!-- PLAYER OPTIONS -->
 		<div class="ui attached compact segment">
 			<!-- Toggle options -->
-			<a class="ui ribbon label" ng-click="menu.playerOptions()">
+			<a class="unselectable ui ribbon label" ng-click="menu.playerOptions()">
 				<i class="options icon"></i>
 			</a>
-			<a class="playback-button" ng-click="togglePlayback()">
+			<a class="unselectable playback-button" ng-click="togglePlayback()">
 			    <i class="circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
 			</a>
-			<a class="info-button" ng-click="toggleInfo()">
+			<a class="unselectable info-button" ng-click="toggleInfo()">
 				<i class="circular info icon"></i>
 			</a>
 			<!-- Options -->
