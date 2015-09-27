@@ -85,8 +85,8 @@ gruveone.factory("Soundcloud", ["$q", "$http", function($q, $http){
 				var d = moment.duration(track.duration);
 				track.processed.duration = d.minutes() + ":" + d.seconds();
 				//Plays and favourites
-				track.processed.playback_count = track.playback_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				track.processed.favoritings_count = track.favoritings_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				track.processed.playback_count = track.playback_count ? track.playback_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
+				track.processed.favoritings_count = track.favoritings_count ? track.favoritings_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 			});
 			return playlist;
 		},
