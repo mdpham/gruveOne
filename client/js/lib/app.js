@@ -22,13 +22,28 @@ gruveone.directive('ngHover', function() {
 					"cursor": "pointer",
 					"background-color": randomColor({luminosity:"light"})
 				});
+				console.log("element", $(element).children(".image"));
+				$(element).children(".image").css("visibility", "hidden");
 			})
 			element.bind("mouseleave", function(){
 				element.css({
 					"cursor": "auto",
 					"background-color": "white"
 				});
+				$(element).children(".image").css("visibility", "visible");
 			})
 	    }
 	}
+});
+
+//Background image directive
+gruveone.directive('backImg', function(){
+    return function(scope, element, attrs){
+        attrs.$observe('backImg', function(value) {
+            element.css({
+                'background-image': 'url(' + value +')',
+                'background-size' : 'cover'
+            });
+        });
+    };
 });

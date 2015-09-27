@@ -23,7 +23,7 @@
 			</a>
 		</div>
 		<!-- Iterate over each track in selected playlist -->
-		<div class="compact item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]">
+		<div class="compact item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]" back-img="[[track.waveform_url]]">
 			<!-- Artwork -->
 			<div class="ui small image">
 				<div class="ui dimmer" ng-class="{active: track.id == soundcloud.current.track.id}"><div class="ui loader"></div></div>
@@ -39,9 +39,9 @@
 				</div>
 				<!-- Track info -->
 				<div class="description">
-					<div class="ui fluid image">
+					<!-- <div class="ui fluid image">
 						<img ng-src="[[track.waveform_url]]">
-					</div>
+					</div> -->
 				</div>
 				<div class="extra">
 					adwajdlaiwdjliawjdlawjdl
