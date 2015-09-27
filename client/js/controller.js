@@ -39,7 +39,7 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 		scope.selectTrack = function(index){
 			//Get Track
 			var track = scope.playlists.selected.tracks[index];
-			// console.log(scope.track);
+			console.log(track);
 			//Create sound and play, manual selection
 			soundcloud.selectTrack(track, scope.playlists.selected);
 		};
