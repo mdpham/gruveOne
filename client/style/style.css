@@ -28,7 +28,7 @@ img.artwork {
 
 a.play-button, a.playback-button {
 	cursor: pointer;
-	opacity: 0.55;
+	opacity: 0.75;
 }
 a.play-button:hover, a.playback-button:hover {
 	opacity: 1;

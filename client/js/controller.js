@@ -1,48 +1,14 @@
 gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soundcloud",
 	function($scope, $meteor, Entry, Menu, Soundcloud){
 		var scope = $scope;
-		// scope.soundcloud = new Soundcloud;
-		// var soundcloud = $scope.soundcloud;
-		$scope.soundcloud = new Soundcloud;
-		var soundcloud = $scope.soundcloud;
+		//Soundcloud
+		scope.soundcloud = new Soundcloud;
+		var soundcloud = scope.soundcloud;
 
 		//Show entry modal to force loading
 		var entry = new Entry;
-		//Load playlists on "Enter" button click
-		// entry.phamartinButton.on("click", function(){
-		// 	entry.enter("phamartin")
-		// 		.then(function(p){
-		// 			scope.playlists = {
-		// 				all: p,
-		// 				selected: null,
-		// 				select: function(index){
-		// 					this.selected = soundcloud.processPlaylist(this.all[index]);
-		// 				}
-		// 			};
-		// 			entry.hide();
-		// 			console.log("playlists:", scope.playlists);
-		// 			scope.entered = true;
-		// 		});
-		// });
-		// entry.pigeonsAndPlanesButton.on("click", function(){
-		// 	entry.enter("pigeonsandplanes")
-		// 	// entry.enter("flashplayer1")
-		// 		.then(function(p){
-		// 			scope.playlists = {
-		// 				all: p,
-		// 				selected: null,
-		// 				select: function(index){
-		// 					this.selected = soundcloud.processPlaylist(this.all[index]);
-		// 					// console.log(soundcloud.playlists);
-		// 					// this.selected = soundcloud.playlists[index];
-		// 				}
-		// 			};
-		// 			entry.hide();
-		// 			console.log("playlists:", scope.playlists);
-		// 			scope.entered = true;
-		// 		});
-		// });
-
+		
+		//Event listeners to load playlist for selected user
 		entry.buttons.on("click", function(e){
 			console.log("event", e.target.dataset.user);
 			entry.enter(e.target.dataset.user)
@@ -59,7 +25,6 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 					scope.entered = true;
 				});
 		});
-		// entry.pigeonsAndPlanesButton.click();
 		////
 
 		//For opening sidebar, controlling actions
@@ -76,7 +41,11 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 			var track = scope.playlists.selected.tracks[index];
 			// console.log(scope.track);
 			//Create sound and play, manual selection
-			soundcloud.selectTrack(track, scope.playlists.selected);
+			try {
+				soundcloud.selectTrack(track, scope.playlists.selected);
+			} catch(err) {
+				alert("Could Not Play Track:", err)
+			};
 		};
 		scope.changeVolume = function(delta){
 			switch (delta) {

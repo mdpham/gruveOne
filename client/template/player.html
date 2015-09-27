@@ -1,23 +1,25 @@
 <!-- Player Sidebar -->
 <template name="player">
 <div class="ui piled segments">
-	<div class="ui horizontal divider">
+	<div class="ui fitted horizontal divider">
 		<a ng-href="[[soundcloud.current.playlist.permalink_url]]" target="_blank">
 			<i class="large orange soundcloud icon"></i>
 		</a>
 	</div>
 	<div ng-show="playlists.selected && soundcloud.current.track">
 		<!-- TRACK INFO -->
-		<div class="ui attached center aligned tertiary segment">
+		<div class="ui compact attached center aligned tertiary segment">
 			<h6 class="ui tiny header" ng-bind="soundcloud.current.track.user.username"></h6>
+			<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank">
+				<strong ng-bind="soundcloud.current.track.title"></strong>
+			</a>
 				<!-- Loading Tracking -->
 				<div class="loading-progress ui active orange inverted top attached progress">
 					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms;"></div>
 				</div>
-			<div class="ui fluid fixed fade reveal image">
+			<div class="ui fluid fade reveal image">
 
 				<!-- Artwork -->
-				<!-- <img class="fluid image" ng-src="[[soundcloud.current.track.processed.artwork_url]]"> -->
 				<img class="artwork-image visible content fluid image">
 				<img class="artist-image hidden content fluid image">
 				<!-- Duration Tracking -->
@@ -27,9 +29,6 @@
 					</div>
 				</div>
 			</div>
-			<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank">
-				<strong ng-bind="soundcloud.current.track.title"></strong>
-			</a>
 			<!-- Play/Pause Button -->
 			<div class="ui horizontal divider">
 				<a class="play-button" ng-click="togglePause()">
@@ -40,13 +39,13 @@
 		</div>
 
 		<!-- PLAYER OPTIONS -->
-		<div class="ui attached segment">
+		<div class="ui attached compact segment">
 			<!-- Toggle options -->
 			<a class="ui ribbon label" ng-click="menu.playerOptions()">
 				<i class="options icon"></i>
 			</a>
 			<a class="playback-button" ng-click="togglePlayback()">
-			    <i class="large circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
+			    <i class="circular orange icon" ng-class="{'long arrow right': soundcloud.current.playback.type=='linear', 'repeat': soundcloud.current.playback.type == 'repeat', 'random': soundcloud.current.playback.type == 'random'}"></i>
 			</a>
 			<!-- Options -->
 			<div class="player-options ui attached segments" style="display:none">

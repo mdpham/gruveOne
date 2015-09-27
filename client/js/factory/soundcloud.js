@@ -66,23 +66,23 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			_.each(playlist.tracks, function(track){
 				track.processed = {};
 				track.processed.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : (track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "");
+				track.processed.avatar_url = track.user.avatar_url.replace("large", "t500x500");
 			});
 			return playlist;
 		},
 		selectTrack: function(track, playlist){
 			var sc = this;
-			//length != 1 to avoid double play of 
-			if (sc.current.playback.type == "random") {
-				console.log("manual HISTORY",sc.current.playback.randomIndex, sc.current.playback.history);
-				sc.current.playback.history.splice(sc.current.playback.randomIndex+1,0,track);
-				sc.current.playback.randomIndex++;
-			};
 			//Check if playing from new playlist
 			if (!(sc.current.playlist == playlist)) {
 				sc.current.playlist = sc.processPlaylist(playlist);
 				//Reset random
 				sc.current.playback.history = [track];
 				sc.current.playback.randomIndex = 0;
+			};
+			//If random, add to history
+			if (sc.current.playback.type == "random") {
+				sc.current.playback.history.splice(sc.current.playback.randomIndex+1,0,track);
+				sc.current.playback.randomIndex++;
 			};
 			sc.playTrack(track, playlist);
 		},
@@ -92,18 +92,10 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			var unmuteOnPlay = function(){if (sc.current.sound) {sc.current.sound.unmute()}};
 			//Stop current sound and destroy
 			if (sc.current.sound){sc.current.sound.destruct()};
-			// //Check if playing from new playlist
-			// if (!(sc.current.playlist == playlist)) {
-			// 	sc.current.playlist = sc.processPlaylist(playlist);
-			// 	//Reset random
-			// 	sc.current.playback.history = [track];
-			// 	sc.current.playback.randomIndex = 0;
-			// };
 			//Create and play sound
 			sc.current.sound = soundManager.createSound({
 				id: "current",
 				url: track.stream_url + "?client_id="+config.soundcloudClientID,
-				// autoPlay: true,
 				volume: this.current.volume, //50
 				whileloading: function(){
 					//Loading progress bar attached to top of artwork
@@ -113,27 +105,26 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 					});
 				},
 				onload: function(){
+					updateVolume();
 					//Playing progress bar attached to bottom of artwork
 					$(".playing-progress").progress({autoSuccess: false});
 					$(".playing-progress .bar").width(0);
-					updateVolume();
 					//Update artwork
 					$(".artwork-image").fadeOut("fast", function(){
 						// console.log("this", this);
 						$(this).attr("src", track.processed.artwork_url);
-						$(".artist-image").attr("src", track.user.avatar_url.replace("large","t500x500"));
+						$(".artist-image").attr("src", track.processed.avatar_url);
 						// console.log(track);
 						$(this).fadeIn("fast");
 					})
 				},
 				whileplaying: function(){
 					//Update position progress bar (uses width to preserve .active effect on progress bar)
-					// $(".playing-progress .bar").width(Math.max(10, this.position/this.duration*100) + "%");
 					$(".playing-progress .bar").width((10 + (90*this.position/this.duration))+"%");
-					console.log("random", sc.current.playback.randomIndex, sc.current.playback.history);
 				},
 				onplay: function(){
 					unmuteOnPlay();
+
 					sc.current.playing = true;
 				},
 				onfinish: function(){
@@ -144,9 +135,6 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				}
 			});
 			//
-			// this.current.playing = true;
-			// sc.current.track = track;
-			console.log("current track", track);
 			sc.current.track = track;
 			sc.current.playback.index = _.indexOf(playlist.tracks, track);
 			sc.current.sound.play();

@@ -1,6 +1,6 @@
 <!-- Main menu for selecting tracks -->
 <template name="main">
-	<!-- SELECT RANDOM PLAYLIST -->
+	<!-- DESCRIPTION/HOW TO USE -->
 	<meteor-include src="main-description" ng-hide="playlists.selected"></meteor-include>
 
 	<!-- PLAYLIST SELECTED -->
@@ -11,15 +11,15 @@
 	<div class="ui relaxed divided items" ng-show="playlists.selected">
 		<!-- Playlist title -->
 		<div class="ui horizontal divider">
-			<a ng-href="[[playlists.selected.permalink_url]]" target="_blank"><h3 class="ui orange header">
-				<span ng-bind="playlists.selected.title"></span>
-			</h3></a>
+			<a ng-href="[[playlists.selected.permalink_url]]" target="_blank">
+				<h3 class="ui orange header" ng-bind="playlists.selected.title"></h3>
+			</a>
 		</div>
 		<!-- Iterate over each track in selected playlist -->
 		<div class="compact item" ng-repeat="track in playlists.selected.tracks" ng-hover ng-click="selectTrack($index)" ng-attr-id="[[track.id.toString()]]">
 			<!-- Artwork -->
 			<div class="ui small image">
-			  <div class="ui dimmer" ng-class="{active: track.id == soundcloud.current.track.id}"><div class="ui loader"></div></div>
+				<div class="ui dimmer" ng-class="{active: track.id == soundcloud.current.track.id}"><div class="ui loader"></div></div>
 				<img class="artwork" ng-src="[[track.processed.artwork_url]]"/>
 			</div>
 			<div class="middle aligned content">
