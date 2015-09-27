@@ -41,11 +41,7 @@ gruveone.controller("appController", ["$scope", "$meteor", "Entry", "Menu","Soun
 			var track = scope.playlists.selected.tracks[index];
 			// console.log(scope.track);
 			//Create sound and play, manual selection
-			try {
-				soundcloud.selectTrack(track, scope.playlists.selected);
-			} catch(err) {
-				alert("Could Not Play Track:", err)
-			};
+			soundcloud.selectTrack(track, scope.playlists.selected);
 		};
 		scope.changeVolume = function(delta){
 			switch (delta) {

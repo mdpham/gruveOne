@@ -7,6 +7,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 
 	//Constructor
 	function Soundcloud() {
+		var sc = this;
 		SC.initialize({
 			//Need to figure this out
 			client_id: config.soundcloudClientID,
@@ -21,11 +22,12 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			ontimeout: function(){
 				alert("soundManager2 just broke");
 			},
-			debugMode: false
+			debugMode: false,
 		});
-		this.playlists = null;
-		//Current sound
-		this.current = {
+
+		sc.playlists = null;
+		//For scope and playing
+		sc.current = {
 			playlist: null,
 			track: null,
 			sound: null,
@@ -88,7 +90,6 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 		},
 		playTrack: function(track, playlist){
 			var sc = this;
-			var updateVolume = function(){$(".volume-progress").progress({autoSuccess: false, value: sc.current.volume});}
 			var unmuteOnPlay = function(){if (sc.current.sound) {sc.current.sound.unmute()}};
 			//Stop current sound and destroy
 			if (sc.current.sound){sc.current.sound.destruct()};
@@ -105,7 +106,8 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 					});
 				},
 				onload: function(){
-					updateVolume();
+					//Update volume
+					$(".volume-progress").progress({autoSuccess: false, value: sc.current.volume});
 					//Playing progress bar attached to bottom of artwork
 					$(".playing-progress").progress({autoSuccess: false});
 					$(".playing-progress .bar").width(0);
@@ -124,7 +126,7 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 				},
 				onplay: function(){
 					unmuteOnPlay();
-
+					sc.current.sound.unmute();
 					sc.current.playing = true;
 				},
 				onfinish: function(){
