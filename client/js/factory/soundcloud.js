@@ -1,4 +1,4 @@
-gruveone.factory("Soundcloud", ["$q", function($q){
+gruveone.factory("Soundcloud", ["$q", "$http", function($q, $http){
 	var config = {
 		// username: "phamartin",
 		username:"pigeonsandplanes",
@@ -93,53 +93,62 @@ gruveone.factory("Soundcloud", ["$q", function($q){
 			var unmuteOnPlay = function(){if (sc.current.sound) {sc.current.sound.unmute()}};
 			//Stop current sound and destroy
 			if (sc.current.sound){sc.current.sound.destruct()};
-			//Create and play sound
-			sc.current.sound = soundManager.createSound({
-				id: "current",
-				url: track.stream_url + "?client_id="+config.soundcloudClientID,
-				volume: this.current.volume, //50
-				whileloading: function(){
-					//Loading progress bar attached to top of artwork
-					$(".loading-progress").progress({
-						autoSuccess: false,
-						value: this.bytesLoaded / this.bytesTotal * 100
+			
+			//Check if track is available to play, slows app
+			$http.get(track.stream_url + "?client_id="+config.soundcloudClientID)
+				.then(function(){
+				//Success
+					//Create and play sound
+					sc.current.sound = soundManager.createSound({
+						id: "current",
+						url: track.stream_url + "?client_id="+config.soundcloudClientID,
+						volume: sc.current.volume, //50
+						whileloading: function(){
+							//Loading progress bar attached to top of artwork
+							$(".loading-progress").progress({
+								autoSuccess: false,
+								value: this.bytesLoaded / this.bytesTotal * 100
+							});
+						},
+						onload: function(){
+							//Update volume
+							$(".volume-progress").progress({autoSuccess: false, value: sc.current.volume});
+							//Playing progress bar attached to bottom of artwork
+							$(".playing-progress").progress({autoSuccess: false});
+							$(".playing-progress .bar").width(0);
+							//Update artwork
+							$(".artwork-image").fadeOut("fast", function(){
+								// console.log("this", this);
+								$(this).attr("src", track.processed.artwork_url);
+								$(".artist-image").attr("src", track.processed.avatar_url);
+								// console.log(track);
+								$(this).fadeIn("fast");
+							})
+						},
+						whileplaying: function(){
+							//Update position progress bar (uses width to preserve .active effect on progress bar)
+							$(".playing-progress .bar").width((10 + (90*this.position/this.duration))+"%");
+						},
+						onplay: function(){
+							unmuteOnPlay();
+							sc.current.sound.unmute();
+							sc.current.playing = true;
+						},
+						onfinish: function(){
+							$(".player-nextTrack").click();
+						},
+						ondataerror: function(){
+							alert("There was an error getting the track data");
+						}
 					});
-				},
-				onload: function(){
-					//Update volume
-					$(".volume-progress").progress({autoSuccess: false, value: sc.current.volume});
-					//Playing progress bar attached to bottom of artwork
-					$(".playing-progress").progress({autoSuccess: false});
-					$(".playing-progress .bar").width(0);
-					//Update artwork
-					$(".artwork-image").fadeOut("fast", function(){
-						// console.log("this", this);
-						$(this).attr("src", track.processed.artwork_url);
-						$(".artist-image").attr("src", track.processed.avatar_url);
-						// console.log(track);
-						$(this).fadeIn("fast");
-					})
-				},
-				whileplaying: function(){
-					//Update position progress bar (uses width to preserve .active effect on progress bar)
-					$(".playing-progress .bar").width((10 + (90*this.position/this.duration))+"%");
-				},
-				onplay: function(){
-					unmuteOnPlay();
-					sc.current.sound.unmute();
-					sc.current.playing = true;
-				},
-				onfinish: function(){
-					$(".player-nextTrack").click();
-				},
-				ondataerror: function(){
-					alert("There was an error getting the track data");
-				}
-			});
-			//
-			sc.current.track = track;
-			sc.current.playback.index = _.indexOf(playlist.tracks, track);
-			sc.current.sound.play();
+					//
+					sc.current.track = track;
+					sc.current.playback.index = _.indexOf(playlist.tracks, track);
+					sc.current.sound.play();
+				}, function(){
+				//Failure
+					alert("Failed to load track");
+				})
 		},
 		//Playback (pause and play)
 		pauseToggle: function(){
