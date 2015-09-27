@@ -18,6 +18,13 @@ img.artwork {
 	border-radius: 5px !important;
 }
 
+div.label.track-tag{
+  opacity: 0.5;
+}
+div.label.track-duration {
+  opacity: 0.75;
+}
+
 .playing-progress, .playing-progress .bar {
 	height: 7px !important;
 	border-bottom-left-radius: 3px !important;

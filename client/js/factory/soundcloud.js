@@ -66,9 +66,27 @@ gruveone.factory("Soundcloud", ["$q", "$http", function($q, $http){
 		processPlaylist: function(playlist){
 			//Hi resolution artwork
 			_.each(playlist.tracks, function(track){
-				track.processed = {};
+				track.processed = {
+					artwork_url: null,
+					avatar_url: null,
+					tag_list: null,
+					duration: null,
+					playback_count: null,
+					favoritings_count: null
+				};
+				//Images
 				track.processed.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : (track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "");
 				track.processed.avatar_url = track.user.avatar_url.replace("large", "t500x500");
+				//Tags
+				track.processed.tag_list = _.map(track.tag_list.match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g), function(t){
+					return t.replace(/"/g,"").toUpperCase();
+				});
+				//Duration
+				var d = moment.duration(track.duration);
+				track.processed.duration = d.minutes() + ":" + d.seconds();
+				//Plays and favourites
+				track.processed.playback_count = track.playback_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				track.processed.favoritings_count = track.favoritings_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			});
 			return playlist;
 		},

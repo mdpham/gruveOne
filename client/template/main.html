@@ -28,23 +28,29 @@
 			<div class="ui small image">
 				<div class="ui dimmer" ng-class="{active: track.id == soundcloud.current.track.id}"><div class="ui loader"></div></div>
 				<img class="artwork" ng-src="[[track.processed.artwork_url]]"/>
+				<div class="track-duration ui mini black top left attached basic label" ng-bind="track.processed.duration"></div>
 			</div>
 			<div class="middle aligned content">
 				<!-- Track title and artist -->
 				<div class="ui header">
-					<h3 ng-bind="track.title"></h3>
 					<div class="sub header">
 						<span ng-bind="track.user.username"></span>
 					</div>
+					<span ng-bind="track.title"></span>
 				</div>
 				<!-- Track info -->
 				<div class="description">
-					<!-- <div class="ui fluid image">
-						<img ng-src="[[track.waveform_url]]">
-					</div> -->
+					<div class="ui tiny circular orange basic label">
+						<i class="play icon"></i>
+						<span ng-bind="track.processed.playback_count"></span>
+					</div>
+					<div class="ui tiny circular red basic label">
+						<i class="heart icon"></i>
+						<span ng-bind="track.processed.favoritings_count"></span>
+					</div>
 				</div>
-				<div class="extra">
-					adwajdlaiwdjliawjdlawjdl
+				<div class="description">
+					<div class="track-tag ui tiny basic label" ng-repeat="tag in track.processed.tag_list" ng-bind="tag"></div>
 				</div>
 			</div>
 		</div>

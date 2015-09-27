@@ -9,10 +9,13 @@
 	<div ng-show="playlists.selected && soundcloud.current.track">
 		<!-- TRACK INFO -->
 		<div class="ui compact attached center aligned tertiary segment">
-			<h6 class="ui tiny header" ng-bind="soundcloud.current.track.user.username"></h6>
-			<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank">
-				<strong ng-bind="soundcloud.current.track.title"></strong>
-			</a>
+			<h6 class="ui tiny top attached header">
+				<span ng-bind="soundcloud.current.track.user.username"></span>
+				<div class="sub header">
+					<a ng-href="[[soundcloud.current.track.permalink_url]]" target="_blank" ng-bind="soundcloud.current.track.title"></a>
+				</div>
+
+			</h6>
 				<!-- Loading Tracking -->
 				<div class="loading-progress ui active orange inverted top attached progress">
 					<div class="bar" style="transition: 300ms; -webkit-transition: 300ms;"></div>
